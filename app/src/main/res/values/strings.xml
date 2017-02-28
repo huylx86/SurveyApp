@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Survey App</string>
+    <string name="welcome">Welcome to Fuhua Primary School</string>
+    <string name="rate_us">Please rate our service</string>
+    <string name="remark">Thank you!</string>
+    <string name="input_feedback">Please input your feedback</string>
+</resources>

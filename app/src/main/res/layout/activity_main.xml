@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:keepScreenOn="true"
+    android:orientation="vertical" >
+    
+    <ImageView android:layout_width="match_parent"
+        	   android:layout_height="wrap_content"
+        	   android:scaleType="fitStart"
+        	   android:src="@drawable/fhps_banner"/>
+    <LinearLayout android:layout_width="match_parent"
+        		  android:layout_height="match_parent"
+        		  android:orientation="vertical"
+        		  android:gravity="center_horizontal">
+       	<TextView android:layout_width="wrap_content"
+       	    	  android:layout_height="wrap_content"
+       	    	  android:textColor="@android:color/black"
+       	    	  android:textStyle="bold"
+       	    	  android:text="@string/welcome"
+       	    	  android:textSize="50sp"/>
+       	<TextView android:layout_width="wrap_content"
+       	    	  android:layout_height="wrap_content"
+       	    	  android:textColor="@android:color/black"
+       	    	  android:text="@string/rate_us"
+       	    	  android:textSize="50sp"/>
+		<LinearLayout android:layout_width="wrap_content"
+		    		  android:layout_height="wrap_content"
+		    		  android:layout_marginTop="30dp"
+		    		  android:orientation="horizontal"
+		    		  android:gravity="center">
+		    <LinearLayout android:layout_width="wrap_content"
+		        		  android:layout_height="wrap_content"
+		        		  android:orientation="vertical"
+		        		  android:layout_marginRight="70dp"
+		        		  android:gravity="center">
+		        		  
+		          <ImageView android:layout_width="wrap_content"
+		            	   android:layout_height="wrap_content"
+		            	   android:src="@drawable/strong_dissatisfied"
+		            	   android:id="@+id/iv_strong_dissatisfied"/>
+		          <RadioButton android:layout_width="wrap_content"
+		            		 android:layout_height="wrap_content"
+		            		 android:id="@+id/rb_strong_dissatisfied"/>
+		       
+		    </LinearLayout>
+		    
+		    <LinearLayout android:layout_width="wrap_content"
+		        		  android:layout_height="wrap_content"
+		        		  android:orientation="vertical"
+		        		  android:layout_marginRight="70dp"
+		        		  android:gravity="center">
+		        <ImageView android:layout_width="wrap_content"
+		            	   android:layout_height="wrap_content"
+		            	   android:src="@drawable/dissatisfied"
+		            	   android:id="@+id/iv_dissatisfied"/>
+		         
+		        <RadioButton android:layout_width="wrap_content"
+		            		 android:layout_height="wrap_content"
+		            		 android:id="@+id/rb_dissatisfied"/>
+		       
+		    </LinearLayout>
+		    
+		     <LinearLayout android:layout_width="wrap_content"
+		        		  android:layout_height="wrap_content"
+		        		  android:orientation="vertical"
+		        		  android:layout_marginRight="70dp"
+		        		  android:gravity="center">
+		        
+		          <ImageView android:layout_width="wrap_content"
+		            	   android:layout_height="wrap_content"
+		            	   android:src="@drawable/netural"
+		            	   android:id="@+id/iv_neutral"/>
+		        <RadioButton android:layout_width="wrap_content"
+		            		 android:layout_height="wrap_content"
+		            		 android:id="@+id/rb_neutral"/>
+		       
+		    </LinearLayout>
+		    
+		      <LinearLayout android:layout_width="wrap_content"
+		        		  android:layout_height="wrap_content"
+		        		  android:orientation="vertical"
+		        		  android:layout_marginRight="70dp"
+		        		  android:gravity="center">
+		        <ImageView android:layout_width="wrap_content"
+		            	   android:layout_height="wrap_content"
+		            	   android:src="@drawable/satisfied"
+		            	   android:id="@+id/iv_satisfy"/>
+		        
+		        <RadioButton android:layout_width="wrap_content"
+		            		 android:layout_height="wrap_content"
+		            		 android:id="@+id/rb_satisfy"/>
+		    
+		        
+		    </LinearLayout>
+		    
+		    <LinearLayout android:layout_width="wrap_content"
+		        		  android:layout_height="wrap_content"
+		        		  android:orientation="vertical"
+		        		  android:gravity="center">
+		        
+		         <ImageView android:layout_width="wrap_content"
+		            	   android:layout_height="wrap_content"
+		            	   android:src="@drawable/strong_satisfied"
+		            	   android:id="@+id/iv_strong_satisfy"/>
+		         
+		         <RadioButton android:layout_width="wrap_content"
+		            		 android:layout_height="wrap_content"
+		            		 android:id="@+id/rb_strong_satisfy"/>
+		         
+		       
+		    </LinearLayout>
+		</LinearLayout>
+	</LinearLayout>
+</LinearLayout>
