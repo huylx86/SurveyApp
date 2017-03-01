@@ -19,5 +19,5 @@
     <string name="feedback_screen_sub_title">Feedback Screen Sub Title</string>
     <string name="submitted_screen_title">Submitted Screen Title(Bold)</string>
     <string name="confirm">Confirm</string>
-    <string name="character_limitation">Max. 30 Character & Space</string>
+    <string name="character_limitation">Max. 30 Character &amp; Space</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.apptitude.surveyapp;
+package com.apptitude.surveyapp.libs;
 
 import java.util.Date;
 import java.util.Properties;

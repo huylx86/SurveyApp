@@ -1,4 +1,4 @@
-package com.apptitude.surveyapp;
+package com.apptitude.surveyapp.activities;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -8,6 +8,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import com.apptitude.surveyapp.utils.CommonUtils;
+import com.apptitude.surveyapp.R;
 import com.opencsv.CSVWriter;
 
 import android.app.Activity;

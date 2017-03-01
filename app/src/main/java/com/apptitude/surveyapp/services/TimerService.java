@@ -1,4 +1,4 @@
-package com.apptitude.surveyapp;
+package com.apptitude.surveyapp.services;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -9,6 +9,9 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
+
+import com.apptitude.surveyapp.utils.CommonUtils;
+import com.apptitude.surveyapp.libs.Mail;
 
 public class TimerService extends Service {
 
@@ -56,7 +59,7 @@ public class TimerService extends Service {
     }
     
     private void sendEmail(){
-    	Mail m = new Mail("survey.app.fuhuapri@gmail.com", "12345678x@X"); 
+    	Mail m = new Mail("survey.app.fuhuapri@gmail.com", "12345678x@X");
         String[] toArr = {"", ""};//{"admin-fhps@moe.edu.sg", "fhps@moe.edu.sg"}; 
         m.setTo(toArr); 
         m.setFrom("survey.app.fuhuapri@gmail.com"); 
