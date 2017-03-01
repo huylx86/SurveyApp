@@ -22,3 +22,8 @@ app/build/intermediates/res/merged/debug/drawable/background.png
 app/build/intermediates/res/merged/debug/drawable-xhdpi/ic_launcher.png
 app/build/
 app/build/intermediates/res/merged/debug/drawable-mdpi/ic_launcher.png
+.gradle/2.14.1/taskArtifacts/cache.properties.lock
+.gradle/2.14.1/taskArtifacts/fileHashes.bin
+.idea/vcs.xml
+.idea/workspace.xml
+app/app.iml
