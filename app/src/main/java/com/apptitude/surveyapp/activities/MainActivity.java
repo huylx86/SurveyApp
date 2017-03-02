@@ -1,9 +1,12 @@
 package com.apptitude.surveyapp.activities;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.media.Image;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -11,6 +14,11 @@ import android.widget.RadioButton;
 
 import com.apptitude.surveyapp.R;
 import com.apptitude.surveyapp.services.TimerService;
+import com.apptitude.surveyapp.utils.CommonUtils;
+import com.apptitude.surveyapp.utils.Constants;
+import com.apptitude.surveyapp.utils.ImageUtils;
+
+import java.io.IOException;
 
 public class MainActivity extends Activity{
 
@@ -24,10 +32,14 @@ public class MainActivity extends Activity{
 	private ImageView ivEdit, ivExit;
 	
 	private static RadioButton rbActive;
+	private Context mContext;
+    private String mFilePath;
+    private SettingDialog mSettingDialog;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		setContentView(R.layout.activity_main);
+        mContext = this;
 		
 		rbStrongSatisfy = (RadioButton)findViewById(R.id.rb_strong_satisfy);
 		rbStrongSatisfy.setOnClickListener(new OnClickListener() {
@@ -132,12 +144,13 @@ public class MainActivity extends Activity{
         ivEdit.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                mSettingDialog = new SettingDialog(mContext);
+                mSettingDialog.show();
             }
         });
-		
 		startService(new Intent(this, TimerService.class));
 		super.onCreate(savedInstanceState);
+
 	}
 
 	@Override
@@ -211,5 +224,28 @@ public class MainActivity extends Activity{
 	@Override
     public void onBackPressed() {
       
+    }
+
+    private void onSelectFromGalleryResult(Intent data) {
+
+        if (data != null) {
+            mFilePath = ImageUtils.getPath(mContext, data.getData());
+        }
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == Activity.RESULT_OK) {
+            onSelectFromGalleryResult(data);
+            if (requestCode == Constants.SELECT_BG_FILE) {
+                mSettingDialog.setBgPath(mFilePath);
+            }
+            else if (requestCode == Constants.SELECT_LOGO_FILE) {
+                mSettingDialog.setLogoPath(mFilePath);
+            }
+        }
     }
 }

@@ -1,8 +1,11 @@
 package com.apptitude.surveyapp.activities;
 
 import android.app.Activity;
-import android.os.Bundle;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -11,8 +14,13 @@ import android.widget.TextView;
 import com.apptitude.surveyapp.R;
 import com.apptitude.surveyapp.models.SettingModel;
 import com.apptitude.surveyapp.utils.CommonUtils;
+import com.apptitude.surveyapp.utils.Constants;
 
-public class SettingActivity extends Activity {
+/**
+ * Created by hle59 on 3/2/2017.
+ */
+
+public class SettingDialog extends Dialog {
 
     private EditText mEdtDeviceDescription,mEdtMainTitle, mEdtSubTitle, mEdtInputEmail;
     private EditText mEdtDailyTime, mEdtWeeklyTime, mEdtFeedbackMainTitle, mEdtFeedbackSubTitle, mEdtSubmitMainTitle;
@@ -22,10 +30,14 @@ public class SettingActivity extends Activity {
     private String bgPath;
     private String logoPath;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    private Context mContext;
+
+    public SettingDialog(Context context) {
+        super(context);
         setContentView(R.layout.setting_dialog);
+        mContext = context;
+        initLayout();
+        setCanceledOnTouchOutside(false);
     }
 
     private void initLayout()
@@ -43,6 +55,18 @@ public class SettingActivity extends Activity {
         mBtnSelectLogo = (Button)findViewById(R.id.btn_select_logo);
         mChkDaily = (RadioButton)findViewById(R.id.chk_daily);
         mChkWeekly = (RadioButton)findViewById(R.id.chk_weekly);
+        mBtnSelectBg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                galleryIntent(Constants.SELECT_BG_FILE);
+            }
+        });
+        mBtnSelectLogo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                galleryIntent(Constants.SELECT_LOGO_FILE);
+            }
+        });
     }
 
     private boolean isValidData()
@@ -103,7 +127,7 @@ public class SettingActivity extends Activity {
 
     private void initSetting()
     {
-        SettingModel setting = CommonUtils.getSetting(this);
+        SettingModel setting = CommonUtils.getSetting(mContext);
         if(setting != null){
             mEdtDailyTime.setText(setting.getDailyTime());
             mEdtDeviceDescription.setText(setting.getDeviceDescription());
@@ -120,8 +144,8 @@ public class SettingActivity extends Activity {
                 mChkDaily.setChecked(false);
                 mChkWeekly.setChecked(true);
             }
-            mTvBgPath.setText(getString(R.string.upload_file_successfuly) + CommonUtils.getFileName(setting.getBackgroundPath()));
-            mTvLogoPath.setText(getString(R.string.upload_file_successfuly) + CommonUtils.getFileName(setting.getLogoPath()));
+            mTvBgPath.setText(mContext.getString(R.string.upload_file_successfuly) + CommonUtils.getFileName(setting.getBackgroundPath()));
+            mTvLogoPath.setText(mContext.getString(R.string.upload_file_successfuly) + CommonUtils.getFileName(setting.getLogoPath()));
         }
     }
 
@@ -147,7 +171,22 @@ public class SettingActivity extends Activity {
         setting.setSubTitle(mEdtSubTitle.getText().toString());
         setting.setSubmitMainTitle(mEdtSubmitMainTitle.getText().toString());
 
-        CommonUtils.saveSetting(this, setting);
+        CommonUtils.saveSetting(mContext, setting);
     }
 
+    private void galleryIntent(int selectType)
+    {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        ((Activity)mContext).startActivityForResult(Intent.createChooser(intent, mContext.getString(R.string.select_file)), selectType);
+    }
+
+    public void setBgPath(String path){
+        mTvBgPath.setText(mContext.getString(R.string.upload_file_successfuly) + CommonUtils.getFileName(path));
+    }
+
+    public void setLogoPath(String path){
+        mTvLogoPath.setText(mContext.getString(R.string.upload_file_successfuly) + CommonUtils.getFileName(path));
+    }
 }

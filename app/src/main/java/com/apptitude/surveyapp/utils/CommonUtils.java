@@ -9,8 +9,11 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class CommonUtils {
 	
@@ -63,5 +66,12 @@ public class CommonUtils {
 		Gson gson = new Gson();
 		SettingModel setting = gson.fromJson(strSetting, type);
 		return setting;
+	}
+
+	public static String getDynamicPassword()
+	{
+		Date now = new Date();
+		SimpleDateFormat format = new SimpleDateFormat("ddMMyyyyHHmm", Locale.getDefault());
+		return format.format(now);
 	}
 }
