@@ -2,6 +2,7 @@ package com.apptitude.surveyapp.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,6 +21,7 @@ public class MainActivity extends Activity{
 	private static final String STRONG_DISSATISFY = "Very Dissatisfied";
 	private RadioButton rbStrongSatisfy, rbSatisfy, rbNeutral, rbDissatify, rbStrongDissatify;
 	private ImageView ivStrongSatisfy, ivSatisfy, ivNeutral, ivDissatify, ivStrongDissatify;
+	private ImageView ivEdit, ivExit;
 	
 	private static RadioButton rbActive;
 	
@@ -125,6 +127,14 @@ public class MainActivity extends Activity{
 				
 			}
 		});
+
+        ivEdit = (ImageView)findViewById(R.id.iv_edit);
+        ivEdit.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 		
 		startService(new Intent(this, TimerService.class));
 		super.onCreate(savedInstanceState);
