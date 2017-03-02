@@ -3,10 +3,8 @@ package com.apptitude.surveyapp.activities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.media.Image;
 import android.os.Bundle;
-import android.provider.MediaStore;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -14,13 +12,10 @@ import android.widget.RadioButton;
 
 import com.apptitude.surveyapp.R;
 import com.apptitude.surveyapp.services.TimerService;
-import com.apptitude.surveyapp.utils.CommonUtils;
 import com.apptitude.surveyapp.utils.Constants;
 import com.apptitude.surveyapp.utils.ImageUtils;
 
-import java.io.IOException;
-
-public class MainActivity extends Activity{
+public class MainActivity extends FragmentActivity{
 
 	private static final String STRONG_SATISFY = "Very Satisfied";
 	private static final String SATISFY = "Satisfied";

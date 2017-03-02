@@ -2,19 +2,28 @@ package com.apptitude.surveyapp.activities;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.apptitude.surveyapp.R;
 import com.apptitude.surveyapp.models.SettingModel;
 import com.apptitude.surveyapp.utils.CommonUtils;
 import com.apptitude.surveyapp.utils.Constants;
+import com.github.jjobes.slidedaytimepicker.SlideDayTimeListener;
+import com.github.jjobes.slidedaytimepicker.SlideDayTimePicker;
+
+import java.util.Calendar;
 
 /**
  * Created by hle59 on 3/2/2017.
@@ -34,6 +43,7 @@ public class SettingDialog extends Dialog {
 
     public SettingDialog(Context context) {
         super(context);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.setting_dialog);
         mContext = context;
         initLayout();
@@ -65,6 +75,44 @@ public class SettingDialog extends Dialog {
             @Override
             public void onClick(View view) {
                 galleryIntent(Constants.SELECT_LOGO_FILE);
+            }
+        });
+        mTvBgPath = (TextView)findViewById(R.id.tv_bg_more_description);
+        mTvLogoPath = (TextView)findViewById(R.id.tv_logo_more_description);
+        mEdtWeeklyTime.setInputType(InputType.TYPE_NULL);
+        mEdtDailyTime.setInputType(InputType.TYPE_NULL);
+
+        mEdtWeeklyTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new SlideDayTimePicker.Builder(((FragmentActivity)mContext).getSupportFragmentManager())
+                        .setListener(listener)
+                        .setInitialDay(1)
+                        .setInitialHour(13)
+                        .setInitialMinute(30)
+                        //.setIs24HourTime(false)
+                        //.setCustomDaysArray(getResources().getStringArray(R.array.days_of_week))
+                        //.setTheme(SlideDayTimePicker.HOLO_DARK)
+                        //.setIndicatorColor(Color.parseColor("#990000"))
+                        .build()
+                        .show();
+            }
+        });
+        mEdtDailyTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(mContext, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        mEdtDailyTime.setText(selectedHour + ":" + selectedMinute);
+                    }
+                }, hour, minute, true);
+                mTimePicker.setTitle("Select Time");
+                mTimePicker.show();
             }
         });
     }
@@ -144,10 +192,26 @@ public class SettingDialog extends Dialog {
                 mChkDaily.setChecked(false);
                 mChkWeekly.setChecked(true);
             }
-            mTvBgPath.setText(mContext.getString(R.string.upload_file_successfuly) + CommonUtils.getFileName(setting.getBackgroundPath()));
-            mTvLogoPath.setText(mContext.getString(R.string.upload_file_successfuly) + CommonUtils.getFileName(setting.getLogoPath()));
+            mTvBgPath.setText(mContext.getString(R.string.upload_file_successfuly).replace("%f", CommonUtils.getFileName(setting.getBackgroundPath())));
+            mTvLogoPath.setText(mContext.getString(R.string.upload_file_successfuly).replace("%f", CommonUtils.getFileName(setting.getLogoPath())));
         }
     }
+
+
+    final SlideDayTimeListener listener = new SlideDayTimeListener() {
+
+        @Override
+        public void onDayTimeSet(int day, int hour, int minute)
+        {
+            mEdtWeeklyTime.setText( day + ";" + String.valueOf(hour) + ":" + String.valueOf(minute) + ":00");
+        }
+
+        @Override
+        public void onDayTimeCancel()
+        {
+        }
+    };
+
 
     private void saveSetting()
     {
@@ -183,10 +247,15 @@ public class SettingDialog extends Dialog {
     }
 
     public void setBgPath(String path){
-        mTvBgPath.setText(mContext.getString(R.string.upload_file_successfuly) + CommonUtils.getFileName(path));
+        mTvBgPath.setText(mContext.getString(R.string.upload_file_successfuly).replace("%f", CommonUtils.getFileName(path)));
     }
 
     public void setLogoPath(String path){
-        mTvLogoPath.setText(mContext.getString(R.string.upload_file_successfuly) + CommonUtils.getFileName(path));
+        mTvLogoPath.setText(mContext.getString(R.string.upload_file_successfuly).replace("%f", CommonUtils.getFileName(path)));
     }
+
+//    @Override
+//    public void onTimeSet(RadialTimePickerDialogFragment dialog, int hourOfDay, int minute) {
+//
+//    }
 }

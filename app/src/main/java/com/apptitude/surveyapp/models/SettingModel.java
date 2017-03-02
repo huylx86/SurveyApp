@@ -1,7 +1,5 @@
 package com.apptitude.surveyapp.models;
 
-import java.util.List;
-
 /**
  * Created by hle59 on 3/1/2017.
  */

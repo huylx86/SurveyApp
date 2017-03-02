@@ -1,8 +1,5 @@
 package com.apptitude.surveyapp.services;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import android.app.Service;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -10,8 +7,11 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 
-import com.apptitude.surveyapp.utils.CommonUtils;
 import com.apptitude.surveyapp.libs.Mail;
+import com.apptitude.surveyapp.utils.CommonUtils;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class TimerService extends Service {
 

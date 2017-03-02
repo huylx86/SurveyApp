@@ -1,17 +1,5 @@
 package com.apptitude.surveyapp.activities;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-
-import com.apptitude.surveyapp.utils.CommonUtils;
-import com.apptitude.surveyapp.R;
-import com.opencsv.CSVWriter;
-
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -21,14 +9,26 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.apptitude.surveyapp.R;
+import com.apptitude.surveyapp.utils.CommonUtils;
+import com.opencsv.CSVWriter;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class RemarkActivity extends Activity {
 	

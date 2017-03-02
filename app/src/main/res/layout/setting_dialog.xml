@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_setting"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:background="@android:color/white"
     tools:context="com.apptitude.surveyapp.activities.SettingActivity">
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="70dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="20dp"
-            android:paddingTop="10dp"
+            android:paddingTop="30dp"
             android:paddingRight="10dp"
             android:paddingBottom="10dp"
             android:orientation="vertical">
@@ -28,6 +29,7 @@
                     android:layout_weight="1.5"
                     android:textSize="15sp"
                     android:textStyle="bold"
+                    android:textColor="@android:color/black"
                     android:text="@string/device_decription"/>
                 <EditText
                     android:layout_width="0dp"
@@ -47,6 +49,7 @@
                     android:layout_weight="1.5"
                     android:textSize="15sp"
                     android:textStyle="bold"
+                    android:textColor="@android:color/black"
                     android:text="@string/main_title"/>
                 <EditText
                     android:layout_width="0dp"
@@ -66,6 +69,7 @@
                     android:layout_weight="1.5"
                     android:textSize="15sp"
                     android:textStyle="bold"
+                    android:textColor="@android:color/black"
                     android:text="@string/sub_title"/>
                 <EditText
                     android:layout_width="0dp"
@@ -92,6 +96,7 @@
                     android:text="@string/file_format"
                     android:textSize="15sp"
                     android:textStyle="italic"
+                    android:textColor="@android:color/black"
                     android:id="@+id/tv_bg_more_description"/>
             </LinearLayout>
             <LinearLayout
@@ -112,6 +117,7 @@
                     android:text="@string/file_format"
                     android:textSize="15sp"
                     android:textStyle="italic"
+                    android:textColor="@android:color/black"
                     android:id="@+id/tv_logo_more_description"/>
             </LinearLayout>
             <LinearLayout
@@ -125,6 +131,7 @@
                     android:layout_marginLeft="10dp"
                     android:text="@string/input_email"
                     android:textSize="15sp"
+                    android:textColor="@android:color/black"
                     android:textStyle="bold"/>
                 <EditText
                     android:layout_width="match_parent"
@@ -142,6 +149,7 @@
                     android:layout_marginLeft="10dp"
                     android:text="@string/excel_report_sending"
                     android:textSize="15sp"
+                    android:textColor="@android:color/black"
                     android:textStyle="bold"/>
                <RadioGroup
                    android:layout_width="match_parent"
@@ -157,10 +165,12 @@
                            android:layout_height="wrap_content"
                            android:layout_marginRight="10dp"
                            android:text="@string/daily"
+                           android:textColor="@android:color/black"
                            android:id="@+id/chk_daily"/>
                        <TextView
                            android:layout_width="wrap_content"
                            android:layout_height="wrap_content"
+                           android:textColor="@android:color/black"
                            android:text="\@"/>
                        <EditText
                            android:layout_width="110dp"
@@ -179,10 +189,12 @@
                            android:layout_height="wrap_content"
                            android:layout_marginRight="10dp"
                            android:text="@string/weekly"
+                           android:textColor="@android:color/black"
                            android:id="@+id/chk_weekly"/>
                        <TextView
                            android:layout_width="wrap_content"
                            android:layout_height="wrap_content"
+                           android:textColor="@android:color/black"
                            android:text="\@"/>
                        <EditText
                            android:layout_width="130dp"
@@ -204,6 +216,7 @@
                     android:layout_weight="1.5"
                     android:textSize="15sp"
                     android:textStyle="bold"
+                    android:textColor="@android:color/black"
                     android:text="@string/feedback_screen_main_title"/>
                 <EditText
                     android:layout_width="0dp"
@@ -223,6 +236,7 @@
                     android:layout_weight="1.5"
                     android:textSize="15sp"
                     android:textStyle="bold"
+                    android:textColor="@android:color/black"
                     android:text="@string/feedback_screen_sub_title"/>
                 <EditText
                     android:layout_width="0dp"
@@ -242,6 +256,7 @@
                     android:layout_weight="1.5"
                     android:textSize="15sp"
                     android:textStyle="bold"
+                    android:textColor="@android:color/black"
                     android:text="@string/submitted_screen_title"/>
                 <EditText
                     android:layout_width="0dp"
@@ -252,4 +267,12 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-</LinearLayout>
+    <Button
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/confirm"
+        android:id="@+id/btn_confirm"/>
+</RelativeLayout>
