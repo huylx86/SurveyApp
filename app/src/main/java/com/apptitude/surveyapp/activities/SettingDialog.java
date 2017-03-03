@@ -1,6 +1,7 @@
 package com.apptitude.surveyapp.activities;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
@@ -105,7 +106,7 @@ public class SettingDialog extends Dialog {
                 int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
                 int minute = mcurrentTime.get(Calendar.MINUTE);
                 TimePickerDialog mTimePicker;
-                mTimePicker = new TimePickerDialog(mContext, new TimePickerDialog.OnTimeSetListener() {
+                mTimePicker = new TimePickerDialog(mContext, AlertDialog.THEME_DEVICE_DEFAULT_DARK, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                         mEdtDailyTime.setText(selectedHour + ":" + selectedMinute);
@@ -203,7 +204,36 @@ public class SettingDialog extends Dialog {
         @Override
         public void onDayTimeSet(int day, int hour, int minute)
         {
-            mEdtWeeklyTime.setText( day + ";" + String.valueOf(hour) + ":" + String.valueOf(minute) + ":00");
+            String dayOfWeek = "";
+            switch (day){
+                case 1:
+                    dayOfWeek = "Sun";
+                    break;
+                case 2:
+                    dayOfWeek = "Mon";
+                    break;
+                case 3:
+                    dayOfWeek = "Tue";
+                    break;
+                case 4:
+                    dayOfWeek = "Wed";
+                    break;
+                case 5:
+                    dayOfWeek = "Thu";
+                    break;
+                case 6:
+                    dayOfWeek = "Fri";
+                    break;
+                case 7:
+                    dayOfWeek = "Sat";
+                    break;
+                default:
+                    dayOfWeek = "Mon";
+                    break;
+
+            }
+
+            mEdtWeeklyTime.setText(dayOfWeek + ";" + String.valueOf(hour) + ":" + String.valueOf(minute) + ":00");
         }
 
         @Override
