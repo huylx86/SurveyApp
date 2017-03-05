@@ -1,4 +1,4 @@
-package com.apptitude.surveyapp.utils;
+package com.apptitude.feedbacknow.utils;
 
 import android.annotation.SuppressLint;
 import android.content.ContentUris;

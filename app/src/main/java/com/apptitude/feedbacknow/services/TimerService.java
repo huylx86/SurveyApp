@@ -1,4 +1,4 @@
-package com.apptitude.surveyapp.services;
+package com.apptitude.feedbacknow.services;
 
 import android.app.Service;
 import android.content.Intent;
@@ -7,8 +7,8 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 
-import com.apptitude.surveyapp.libs.Mail;
-import com.apptitude.surveyapp.utils.CommonUtils;
+import com.apptitude.feedbacknow.libs.Mail;
+import com.apptitude.feedbacknow.utils.CommonUtils;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -16,7 +16,7 @@ import java.util.TimerTask;
 public class TimerService extends Service {
 
 	// constant
-    public static final long NOTIFY_INTERVAL = 7 * 24 * 60 * 60 * 1000; // 10 seconds
+    public static final long NOTIFY_INTERVAL = 7 * 24 * 60 * 60 * 1000;
  
     // run on another Thread to avoid crash
     private Handler mHandler = new Handler();
@@ -37,6 +37,7 @@ public class TimerService extends Service {
             // recreate new
             mTimer = new Timer();
         }
+        sendEmail();
         // schedule task
         mTimer.scheduleAtFixedRate(new TimeDisplayTimerTask(), 0, NOTIFY_INTERVAL);
         
@@ -59,10 +60,11 @@ public class TimerService extends Service {
     }
     
     private void sendEmail(){
-    	Mail m = new Mail("survey.app.fuhuapri@gmail.com", "12345678x@X");
-        String[] toArr = {"", ""};//{"admin-fhps@moe.edu.sg", "fhps@moe.edu.sg"}; 
+//    	Mail m = new Mail("survey.app.fuhuapri@gmail.com", "12345678x@X");
+        Mail m = new Mail("feedbacknow.apptitude@gmail.com", "F33db@ckN0W@PPt1tud3");
+        String[] toArr = {"huylx86@gmail.com"};//{"admin-fhps@moe.edu.sg", "fhps@moe.edu.sg"};
         m.setTo(toArr); 
-        m.setFrom("survey.app.fuhuapri@gmail.com"); 
+        m.setFrom("feedbacknow.apptitude@gmail.com");
         m.setSubject("Survey Report"); 
         
         String fromDate = CommonUtils.getString(this, CommonUtils.PREF_FROM_DATE, "");

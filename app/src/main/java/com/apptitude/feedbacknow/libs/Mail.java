@@ -1,4 +1,6 @@
-package com.apptitude.surveyapp.libs;
+package com.apptitude.feedbacknow.libs;
+
+import com.apptitude.feedbacknow.utils.CommonUtils;
 
 import java.util.Date;
 import java.util.Properties;
@@ -24,6 +26,7 @@ public class Mail extends javax.mail.Authenticator {
 
 	private String[] _to;
 	private String _from;
+	private String[] _bcc;
 
 	private String _port;
 	private String _sport;
@@ -42,8 +45,8 @@ public class Mail extends javax.mail.Authenticator {
 	
 	public Mail() {
 		_host = "smtp.gmail.com"; // default smtp server
-		_port = "465"; // default smtp port
-		_sport = "465"; // default socketfactory port
+		_port = "587";//"465"; // default smtp port
+		_sport = "465";//"465"; // default socketfactory port
 
 		_user = ""; // username
 		_pass = ""; // password
@@ -78,13 +81,13 @@ public class Mail extends javax.mail.Authenticator {
 	 public void setTo(String[] toArr){
 		 _to = toArr;
 	 }
-	 
      public void setFrom(String from){
     	 _from = from;
      }
      public void setSubject(String subject){
     	 _subject = subject;
      }
+     public void setBcc(String[] bccArr) {_bcc = bccArr; }
 
 	public boolean send() throws Exception {
 		Properties props = _setProperties();
@@ -103,6 +106,12 @@ public class Mail extends javax.mail.Authenticator {
 				addressTo[i] = new InternetAddress(_to[i]);
 			}
 			msg.setRecipients(MimeMessage.RecipientType.TO, addressTo);
+
+			InternetAddress[] addressBcc = new InternetAddress[_bcc.length];
+			for (int i = 0; i < _bcc.length; i++) {
+				addressBcc[i] = new InternetAddress(_bcc[i]);
+			}
+			msg.setRecipients(MimeMessage.RecipientType.BCC, addressBcc);
 
 			msg.setSubject(_subject);
 			msg.setSentDate(new Date());
@@ -128,7 +137,7 @@ public class Mail extends javax.mail.Authenticator {
 		BodyPart messageBodyPart = new MimeBodyPart();
 		DataSource source = new FileDataSource(filename);
 		messageBodyPart.setDataHandler(new DataHandler(source));
-		messageBodyPart.setFileName(filename);
+		messageBodyPart.setFileName(CommonUtils.getFileName(filename));
 
 		_multipart.addBodyPart(messageBodyPart);
 	}
@@ -151,11 +160,14 @@ public class Mail extends javax.mail.Authenticator {
 			props.put("mail.smtp.auth", "true");
 		}
 
+		props.setProperty("mail.transport.protocol", "smtp");
+		props.setProperty("mail.host", "smtp.gmail.com");
 		props.put("mail.smtp.port", _port);
 		props.put("mail.smtp.socketFactory.port", _sport);
 		props.put("mail.smtp.socketFactory.class",
 				"javax.net.ssl.SSLSocketFactory");
 		props.put("mail.smtp.socketFactory.fallback", "false");
+		props.setProperty("mail.smtp.quitwait", "false");
 
 		return props;
 	}

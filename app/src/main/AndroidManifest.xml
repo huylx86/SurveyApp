@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.apptitude.surveyapp"
+    package="com.apptitude.feedbacknow"
     android:versionCode="1"
     android:versionName="1.0">
 
@@ -8,11 +8,11 @@
         android:minSdkVersion="15"
         android:targetSdkVersion="19" />
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
-    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:allowBackup="true"
@@ -20,26 +20,36 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activities.MainActivity"
+            android:name="com.apptitude.feedbacknow.activities.MainActivity"
             android:screenOrientation="landscape"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:windowSoftInputMode="stateHidden">
+        </activity>
+        <activity
+            android:name="com.apptitude.feedbacknow.activities.RemarkActivity"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:windowSoftInputMode="stateHidden" />
+
+        <!-- <service -->
+        <!-- android:name=".services.TimerService" -->
+        <!-- android:enabled="true" /> -->
+        <!-- android:process=":remote" -->
+        <receiver android:name="com.apptitude.feedbacknow.services.SendingReportTask" />
+
+        <activity
+            android:name="com.apptitude.feedbacknow.activities.SubmittedActivity"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+
+        <activity android:name="com.apptitude.feedbacknow.activities.SplashActivity"
+                  android:screenOrientation="landscape"
+                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activities.RemarkActivity"
-            android:screenOrientation="landscape"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-            android:windowSoftInputMode="stateHidden"></activity>
-
-        <service
-            android:name=".services.TimerService"
-            android:enabled="true" />
-
-        <activity android:name=".activities.SettingActivity"></activity>
     </application>
 
 </manifest>

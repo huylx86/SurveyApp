@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Survey App</string>
+    <string name="app_name">FeedbackNOW</string>
     <string name="welcome">Welcome to Fuhua Primary School</string>
     <string name="rate_us">Please rate our service</string>
     <string name="remark">Thank you!</string>
@@ -7,7 +7,7 @@
     <string name="device_decription">Device Description:</string>
     <string name="main_title">Main Title (Default Bold):</string>
     <string name="sub_title">Sub Title:</string>
-    <string name="select_background">Select Background</string>
+    <string name="select_background">Select Background:</string>
     <string name="file_format">File format supported (PNG, JPG, GIF only)</string>
     <string name="upload_file_successfuly">Uploaded succesfully; %f</string>
     <string name="select_logo">Select logo:</string>
@@ -22,4 +22,12 @@
     <string name="character_limitation">Max. 30 Character &amp; Space</string>
     <string name="select_file">Select File</string>
     <string name="configuration_access">Configuration Access</string>
+    <string name="title_alert_dialog">Alert</string>
+    <string name="alert_message">Please input %m .Thank you!</string>
+    <string name="alert_message_select_background">Please select background. Thank you!</string>
+    <string name="alert_message_select_logo">Please select logo. Thank you!</string>
+    <string name="message_close_setting">Proceed to permanently exit Configuration screen?</string>
+    <string name="warning_title">Warning!</string>
+    <string name="last_report_submission">Last report submission: </string>
+    <string name="next_report_submission">Next report submission: </string>
 </resources>

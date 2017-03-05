@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_setting"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
-    tools:context="com.apptitude.surveyapp.activities.SettingActivity">
+    android:background="@android:color/white">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,7 +25,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.5"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/font_size_setting"
                     android:textStyle="bold"
                     android:textColor="@android:color/black"
                     android:text="@string/device_decription"/>
@@ -36,6 +34,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:hint="@string/character_limitation"
+                    android:textSize="@dimen/font_size_setting"
                     android:id="@+id/edt_device_description"/>
             </LinearLayout>
             <LinearLayout
@@ -47,7 +46,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.5"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/font_size_setting"
                     android:textStyle="bold"
                     android:textColor="@android:color/black"
                     android:text="@string/main_title"/>
@@ -56,6 +55,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:hint="@string/character_limitation"
+                    android:textSize="@dimen/font_size_setting"
                     android:id="@+id/edt_main_title"/>
             </LinearLayout>
             <LinearLayout
@@ -67,7 +67,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.5"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/font_size_setting"
                     android:textStyle="bold"
                     android:textColor="@android:color/black"
                     android:text="@string/sub_title"/>
@@ -76,46 +76,51 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:hint="@string/character_limitation"
+                    android:textSize="@dimen/font_size_setting"
                     android:id="@+id/edt_sub_title"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
                 <Button
-                    android:layout_width="150dp"
+                    android:layout_width="170dp"
                     android:layout_height="45dp"
                     android:text="@string/select_background"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/font_size_setting"
                     android:id="@+id/btn_select_bg"/>
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
+                    android:gravity="center_vertical"
+                    android:ellipsize="end"
                     android:text="@string/file_format"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/font_size_setting"
                     android:textStyle="italic"
                     android:textColor="@android:color/black"
                     android:id="@+id/tv_bg_more_description"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
                 <Button
-                    android:layout_width="150dp"
+                    android:layout_width="170dp"
                     android:layout_height="45dp"
                     android:text="@string/select_logo"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/font_size_setting"
                     android:id="@+id/btn_select_logo"/>
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
+                    android:gravity="center_vertical"
+                    android:ellipsize="end"
                     android:text="@string/file_format"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/font_size_setting"
                     android:textStyle="italic"
                     android:textColor="@android:color/black"
                     android:id="@+id/tv_logo_more_description"/>
@@ -130,12 +135,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:text="@string/input_email"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/font_size_setting"
                     android:textColor="@android:color/black"
                     android:textStyle="bold"/>
                 <EditText
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/font_size_setting"
                     android:id="@+id/edt_input_email"/>
             </LinearLayout>
             <LinearLayout
@@ -164,20 +170,26 @@
                            android:layout_width="wrap_content"
                            android:layout_height="wrap_content"
                            android:layout_marginRight="10dp"
+                           android:textSize="@dimen/font_size_setting"
                            android:text="@string/daily"
                            android:textColor="@android:color/black"
+                           android:checked="true"
                            android:id="@+id/chk_daily"/>
                        <TextView
                            android:layout_width="wrap_content"
                            android:layout_height="wrap_content"
                            android:textColor="@android:color/black"
+                           android:textSize="@dimen/font_size_setting"
                            android:text="\@"/>
-                       <EditText
-                           android:layout_width="110dp"
-                           android:layout_height="40dp"
+                       <TextView
+                           android:layout_width="90dp"
+                           android:layout_height="wrap_content"
+                           android:layout_marginLeft="5dp"
+                           android:padding="3dp"
                            android:hint="HHMMSS"
-                           android:textSize="15sp"
-                           android:id="@+id/edt_daily_time"/>
+                           android:textSize="@dimen/font_size_setting"
+                           android:background="@drawable/background_rectangle_black"
+                           android:id="@+id/tv_daily_time"/>
                    </LinearLayout>
                    <LinearLayout
                        android:layout_width="0dp"
@@ -188,20 +200,24 @@
                            android:layout_width="wrap_content"
                            android:layout_height="wrap_content"
                            android:layout_marginRight="10dp"
+                           android:textSize="@dimen/font_size_setting"
                            android:text="@string/weekly"
                            android:textColor="@android:color/black"
                            android:id="@+id/chk_weekly"/>
                        <TextView
                            android:layout_width="wrap_content"
                            android:layout_height="wrap_content"
+                           android:textSize="@dimen/font_size_setting"
                            android:textColor="@android:color/black"
                            android:text="\@"/>
-                       <EditText
+                       <TextView
                            android:layout_width="130dp"
-                           android:layout_height="40dp"
-                           android:textSize="15sp"
+                           android:layout_height="wrap_content"
+                           android:textSize="@dimen/font_size_setting"
+                           android:padding="3dp"
                            android:hint="DAY;HHMMSS"
-                           android:id="@+id/edt_weekly_time"/>
+                           android:background="@drawable/background_rectangle_black"
+                           android:id="@+id/tv_weekly_time"/>
                    </LinearLayout>
                </RadioGroup>
             </LinearLayout>
@@ -213,8 +229,8 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1.5"
-                    android:textSize="15sp"
+                    android:layout_weight="2"
+                    android:textSize="@dimen/font_size_setting"
                     android:textStyle="bold"
                     android:textColor="@android:color/black"
                     android:text="@string/feedback_screen_main_title"/>
@@ -223,6 +239,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:hint="@string/character_limitation"
+                    android:textSize="@dimen/font_size_setting"
                     android:id="@+id/edt_feedback_main_title"/>
             </LinearLayout>
             <LinearLayout
@@ -233,8 +250,8 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1.5"
-                    android:textSize="15sp"
+                    android:layout_weight="2"
+                    android:textSize="@dimen/font_size_setting"
                     android:textStyle="bold"
                     android:textColor="@android:color/black"
                     android:text="@string/feedback_screen_sub_title"/>
@@ -242,6 +259,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
+                    android:textSize="@dimen/font_size_setting"
                     android:hint="@string/character_limitation"
                     android:id="@+id/edt_feedback_sub_title"/>
             </LinearLayout>
@@ -253,8 +271,8 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1.5"
-                    android:textSize="15sp"
+                    android:layout_weight="2"
+                    android:textSize="@dimen/font_size_setting"
                     android:textStyle="bold"
                     android:textColor="@android:color/black"
                     android:text="@string/submitted_screen_title"/>
@@ -262,14 +280,15 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
+                    android:textSize="@dimen/font_size_setting"
                     android:hint="@string/character_limitation"
                     android:id="@+id/edt_submit_main_title"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
     <Button
-        android:layout_width="120dp"
-        android:layout_height="50dp"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
         android:layout_margin="10dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"

@@ -3,18 +3,62 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:background="@android:color/white"
-	android:keepScreenOn="true">
+	android:keepScreenOn="true"
+	android:id="@+id/ln_main_view">
+	<pl.droidsonroids.gif.GifImageView
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:scaleType="fitXY"
+		android:id="@+id/iv_bg_gif"
+		android:visibility="gone"/>
 	<LinearLayout
 		android:layout_width="wrap_content"
 		android:layout_height="match_parent"
 		android:layout_above="@+id/ln_admin_config"
 		android:orientation="vertical" >
-		<ImageView android:layout_width="match_parent"
-				   android:layout_height="wrap_content"
-				   android:scaleType="fitStart"
-				   android:src="@drawable/fhps_banner"/>
+		<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			android:layout_weight="1">
+			<ImageView
+				android:layout_width="100dp"
+				android:layout_height="100dp"
+				android:scaleType="fitCenter"
+				android:layout_alignParentRight="true"
+				android:layout_margin="30dp"
+				android:id="@+id/iv_logo"/>
+			<pl.droidsonroids.gif.GifImageView
+				android:layout_width="100dp"
+				android:layout_height="100dp"
+				android:scaleType="fitCenter"
+				android:layout_alignParentRight="true"
+				android:layout_margin="30dp"
+				android:id="@+id/iv_logo_gif"
+				android:visibility="gone"/>
+			<!--<pl.droidsonroids.gif.GifTextView-->
+				<!--android:layout_width="100dp"-->
+				<!--android:layout_height="100dp"-->
+				<!--android:scaleType="fitCenter"-->
+				<!--android:layout_margin="30dp"-->
+				<!--android:layout_alignParentLeft="true"-->
+				<!--android:background="@drawable/edit"-->
+				<!--/>-->
+			<!--<com.apptitude.surveyapp.gif.GifDecoderView-->
+				<!--android:layout_width="100dp"-->
+				<!--android:layout_height="100dp"-->
+				<!--android:scaleType="fitCenter"-->
+				<!--android:layout_alignParentLeft="true"-->
+				<!--android:layout_margin="30dp"-->
+				<!--android:src="@drawable/giphy"-->
+				<!--android:id="@+id/iv_logo_1"/>-->
+		</RelativeLayout>
+		<!--<ImageView android:layout_width="match_parent"-->
+				   <!--android:layout_height="wrap_content"-->
+				   <!--android:scaleType="fitStart"-->
+				   <!--android:src="@drawable/fhps_banner"/>-->
 		<LinearLayout android:layout_width="match_parent"
-					  android:layout_height="match_parent"
+					  android:layout_height="0dp"
+					  android:layout_weight="2"
 					  android:orientation="vertical"
 					  android:gravity="center_horizontal">
 			<TextView android:layout_width="wrap_content"
@@ -22,12 +66,14 @@
 					  android:textColor="@android:color/black"
 					  android:textStyle="bold"
 					  android:text="@string/welcome"
-					  android:textSize="50sp"/>
+					  android:textSize="50sp"
+					  android:id="@+id/tv_main_title"/>
 			<TextView android:layout_width="wrap_content"
 					  android:layout_height="wrap_content"
 					  android:textColor="@android:color/black"
 					  android:text="@string/rate_us"
-					  android:textSize="50sp"/>
+					  android:textSize="50sp"
+					  android:id="@+id/tv_sub_title"/>
 			<LinearLayout android:layout_width="wrap_content"
 						  android:layout_height="wrap_content"
 						  android:layout_marginTop="30dp"
@@ -121,22 +167,55 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_alignParentRight="true"
-		android:layout_alignParentBottom="true"
-		android:layout_margin="40dp"
+		android:layout_above="@+id/report_status"
+		android:layout_margin="20dp"
 		android:id="@id/ln_admin_config"
 		android:orientation="horizontal">
 		<ImageView
-			android:layout_width="60dp"
-			android:layout_height="60dp"
+			android:layout_width="40dp"
+			android:layout_height="40dp"
 			android:layout_marginRight="60dp"
 			android:scaleType="fitXY"
 			android:src="@drawable/edit"
 			android:id="@+id/iv_edit"/>
 		<ImageView
-			android:layout_width="60dp"
-			android:layout_height="60dp"
+			android:layout_width="40dp"
+			android:layout_height="40dp"
 			android:scaleType="fitXY"
 			android:src="@drawable/exit"
 			android:id="@+id/iv_close"/>
+	</LinearLayout>
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="30dp"
+		android:layout_alignParentBottom="true"
+		android:background="#A9A9A9"
+		android:orientation="horizontal"
+		android:gravity="center_vertical"
+		android:paddingLeft="10dp"
+		android:id="@id/report_status">
+		<TextView
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="0.5"
+			android:textSize="14sp"
+			android:textColor="@android:color/white"
+			android:id="@+id/tv_network_status"/>
+		<TextView
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="2"
+			android:textSize="14sp"
+			android:textColor="@android:color/white"
+			android:text="@string/last_report_submission"
+			android:id="@+id/tv_last_submission"/>
+		<TextView
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="2"
+			android:text="@string/next_report_submission"
+			android:textSize="14sp"
+			android:textColor="@android:color/white"
+			android:id="@+id/tv_next_submission"/>
 	</LinearLayout>
 </RelativeLayout>

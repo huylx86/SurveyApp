@@ -1,4 +1,4 @@
-package com.apptitude.surveyapp.models;
+package com.apptitude.feedbacknow.models;
 
 /**
  * Created by hle59 on 3/1/2017.
@@ -9,6 +9,11 @@ public class SettingModel {
     private String mainTitle;
     private String subTitle;
     private String[] lstEmails;
+    private int dailyHours;
+    private int dailyMinute;
+    private int weeklyHours;
+    private int weeklyMinutes;
+    private int dayOfWeek;
     private String dailyTime;
     private String weeklyTime;
     private boolean isDailySending;
@@ -112,5 +117,45 @@ public class SettingModel {
 
     public void setLogoPath(String logoPath) {
         this.logoPath = logoPath;
+    }
+
+    public int getDailyHours() {
+        return dailyHours;
+    }
+
+    public void setDailyHours(int dailyHours) {
+        this.dailyHours = dailyHours;
+    }
+
+    public int getDailyMinute() {
+        return dailyMinute;
+    }
+
+    public void setDailyMinute(int dailyMinute) {
+        this.dailyMinute = dailyMinute;
+    }
+
+    public int getWeeklyHours() {
+        return weeklyHours;
+    }
+
+    public void setWeeklyHours(int weeklyHours) {
+        this.weeklyHours = weeklyHours;
+    }
+
+    public int getWeeklyMinutes() {
+        return weeklyMinutes;
+    }
+
+    public void setWeeklyMinutes(int weeklyMinutes) {
+        this.weeklyMinutes = weeklyMinutes;
+    }
+
+    public int getDayOfWeek() {
+        return dayOfWeek;
+    }
+
+    public void setDayOfWeek(int dayOfWeek) {
+        this.dayOfWeek = dayOfWeek;
     }
 }
