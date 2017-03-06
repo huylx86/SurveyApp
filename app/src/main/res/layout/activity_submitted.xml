@@ -12,25 +12,44 @@
         android:scaleType="fitXY"
         android:id="@+id/iv_bg_gif"
         android:visibility="gone"/>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:scaleType="fitCenter"
-            android:layout_alignParentRight="true"
-            android:layout_margin="30dp"
-            android:id="@+id/iv_logo"/>
-        <pl.droidsonroids.gif.GifImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:scaleType="fitCenter"
-            android:layout_alignParentRight="true"
-            android:layout_margin="30dp"
-            android:id="@+id/iv_logo_gif"
-            android:visibility="gone"/>
-    </RelativeLayout>
+    <LinearLayout  android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"/>
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitCenter"
+                    android:layout_margin="30dp"
+                    android:id="@+id/iv_logo"/>
+                <pl.droidsonroids.gif.GifImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitCenter"
+                    android:layout_margin="30dp"
+                    android:id="@+id/iv_logo_gif"
+                    android:visibility="gone"/>
+            </FrameLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:orientation="horizontal"/>
+
+    </LinearLayout>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

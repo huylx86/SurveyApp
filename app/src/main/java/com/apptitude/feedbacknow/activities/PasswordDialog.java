@@ -13,7 +13,6 @@ import android.widget.EditText;
 import com.apptitude.feedbacknow.R;
 import com.apptitude.feedbacknow.utils.CommonUtils;
 import com.apptitude.feedbacknow.utils.Constants;
-import com.apptitude.feedbacknow.utils.KeyboardUtils;
 
 /**
  * Created by hle59 on 3/2/2017.

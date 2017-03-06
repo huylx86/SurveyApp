@@ -42,7 +42,7 @@ public class MainActivity extends FragmentActivity{
 	private View mMainView;
 	private ImageView mIvLogo;
 	private GifImageView mIvLogGif, mIvBgGif;
-	private TextView mTvMainTitle, mTvSubTitle, mTvNetworkStatus, mTvLastSubmission, mTvNextSubmission;
+	private TextView mTvMainTitle, mTvSubTitle, mTvNetworkStatus;//, mTvLastSubmission, mTvNextSubmission;
 
 	private static RadioButton rbActive;
 	private Context mContext;
@@ -63,9 +63,10 @@ public class MainActivity extends FragmentActivity{
 		mIvBgGif = (GifImageView)findViewById(R.id.iv_bg_gif);
 		mTvMainTitle = (TextView)findViewById(R.id.tv_main_title);
 		mTvSubTitle = (TextView)findViewById(R.id.tv_sub_title);
+//		mViewConnectionStatus = findViewById(R.id.report_status);
 		mTvNetworkStatus = (TextView)findViewById(R.id.tv_network_status);
-		mTvLastSubmission = (TextView)findViewById(R.id.tv_last_submission);
-		mTvNextSubmission = (TextView)findViewById(R.id.tv_next_submission);
+//		mTvLastSubmission = (TextView)findViewById(R.id.tv_last_submission);
+//		mTvNextSubmission = (TextView)findViewById(R.id.tv_next_submission);
 
 		rbStrongSatisfy = (RadioButton)findViewById(R.id.rb_strong_satisfy);
 		rbStrongSatisfy.setOnClickListener(new OnClickListener() {
@@ -190,7 +191,7 @@ public class MainActivity extends FragmentActivity{
 			}
 		});
 //		startService(new Intent(this, TimerService.class));
-		registerReceiver(mReceiverUpdateStatusReport, new IntentFilter(Constants.ACTION_UPDATE_REPORT_STATUS));
+//		registerReceiver(mReceiverUpdateStatusReport, new IntentFilter(Constants.ACTION_UPDATE_REPORT_STATUS));
 		registerReceiver(mReceiverNetworkChange, new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE"));
 		initScreen();
 		super.onCreate(savedInstanceState);
@@ -206,20 +207,20 @@ public class MainActivity extends FragmentActivity{
 
 	@Override
 	protected void onDestroy() {
-		unregisterReceiver(mReceiverUpdateStatusReport);
+//		unregisterReceiver(mReceiverUpdateStatusReport);
 		unregisterReceiver(mReceiverNetworkChange);
 		super.onDestroy();
 	}
 
-	BroadcastReceiver mReceiverUpdateStatusReport = new BroadcastReceiver() {
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			String lastSubmission = CommonUtils.getLastSubmittedRport(context);
-			String nextSubmission = CommonUtils.getNextSubmittedRport(context);
-			mTvLastSubmission.setText(getString(R.string.last_report_submission) + " " + lastSubmission);
-			mTvNextSubmission.setText(getString(R.string.next_report_submission) + " " + nextSubmission);
-		}
-	};
+//	BroadcastReceiver mReceiverUpdateStatusReport = new BroadcastReceiver() {
+//		@Override
+//		public void onReceive(Context context, Intent intent) {
+//			String lastSubmission = CommonUtils.getLastSubmittedRport(context);
+//			String nextSubmission = CommonUtils.getNextSubmittedRport(context);
+//			mTvLastSubmission.setText(getString(R.string.last_report_submission) + " " + lastSubmission);
+//			mTvNextSubmission.setText(getString(R.string.next_report_submission) + " " + nextSubmission);
+//		}
+//	};
 
 	BroadcastReceiver mReceiverNetworkChange = new BroadcastReceiver() {
 		@Override
@@ -227,14 +228,16 @@ public class MainActivity extends FragmentActivity{
 			ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 			NetworkInfo netInfo = cm.getActiveNetworkInfo();
 			if(netInfo != null && netInfo.isConnected()){
-				mTvNetworkStatus.setVisibility(View.INVISIBLE);
-				mTvLastSubmission.setVisibility(View.VISIBLE);
-				mTvNextSubmission.setVisibility(View.VISIBLE);
+//				mViewConnectionStatus.setVisibility(View.GONE);
+				mTvNetworkStatus.setVisibility(View.GONE);
+//				mTvLastSubmission.setVisibility(View.VISIBLE);
+//				mTvNextSubmission.setVisibility(View.VISIBLE);
 			} else {
+//				mViewConnectionStatus.setVisibility(View.VISIBLE);
 				mTvNetworkStatus.setVisibility(View.VISIBLE);
-				mTvNetworkStatus.setText("Offline");
-				mTvLastSubmission.setVisibility(View.INVISIBLE);
-				mTvNextSubmission.setVisibility(View.INVISIBLE);
+//				mTvNetworkStatus.setText("Offline");
+//				mTvLastSubmission.setVisibility(View.INVISIBLE);
+//				mTvNextSubmission.setVisibility(View.INVISIBLE);
 			}
 		}
 	};

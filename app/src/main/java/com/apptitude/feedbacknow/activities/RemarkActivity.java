@@ -1,8 +1,10 @@
 package com.apptitude.feedbacknow.activities;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Editable;
@@ -21,6 +23,7 @@ import android.widget.TextView;
 import com.apptitude.feedbacknow.R;
 import com.apptitude.feedbacknow.models.SettingModel;
 import com.apptitude.feedbacknow.utils.CommonUtils;
+import com.apptitude.feedbacknow.utils.Constants;
 import com.apptitude.feedbacknow.utils.SurveySubmissionUtils;
 
 import java.io.IOException;
@@ -32,12 +35,13 @@ public class RemarkActivity extends Activity {
 	private String status = "";
 	private Context context;
 	private EditText edtRemark;
-	private TextView tvCountDown, mTvFeedbackMainTitle, mTvFeedbackSubTitle;
+	private TextView mTvFeedbackMainTitle, mTvFeedbackSubTitle;
 	private View mMainView;
 	private ImageView mIvLogo;
 	private CountDownTimer countDownTimer;
 	private SurveySubmissionUtils surveySubmission;
 	private GifImageView mIvLogGif, mIvBgGif;
+	private TextView mTvLastSubmission, mTvNextSubmission;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +60,10 @@ public class RemarkActivity extends Activity {
 		mIvLogo = (ImageView)findViewById(R.id.iv_logo);
 		mIvLogGif = (GifImageView)findViewById(R.id.iv_logo_gif);
 		mIvBgGif = (GifImageView)findViewById(R.id.iv_bg_gif);
+		mTvLastSubmission = (TextView)findViewById(R.id.tv_last_submission);
+		mTvNextSubmission = (TextView)findViewById(R.id.tv_next_submission);
 
-		ImageView btnSubmit = (ImageView)findViewById(R.id.btn_submit);
+		final ImageView btnSubmit = (ImageView)findViewById(R.id.btn_submit);
 		btnSubmit.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -105,11 +111,44 @@ public class RemarkActivity extends Activity {
 //			pathFile = fileName;
 //		}
 		
-		tvCountDown = (TextView)findViewById(R.id.count_down);
+//		tvCountDown = (TextView)findViewById(R.id.count_down);
 		countDownTimer = new CountDownTimer(10000, 1000) {
 
 		     public void onTick(long millisUntilFinished) {
-		         tvCountDown.setText(String.valueOf(millisUntilFinished / 1000));
+				 int i = (int)millisUntilFinished / 1000;
+				 switch(i) {
+					 case 1:
+					 	btnSubmit.setImageResource(R.drawable.ic_submit_1);
+						 break;
+					 case 2:
+						 btnSubmit.setImageResource(R.drawable.ic_submit_2);
+						 break;
+					 case 3:
+						 btnSubmit.setImageResource(R.drawable.ic_submit_3);
+						 break;
+					 case 4:
+						 btnSubmit.setImageResource(R.drawable.ic_submit_4);
+						 break;
+					 case 5:
+						 btnSubmit.setImageResource(R.drawable.ic_submit_5);
+						 break;
+					 case 6:
+						 btnSubmit.setImageResource(R.drawable.ic_submit_6);
+						 break;
+					 case 7:
+						 btnSubmit.setImageResource(R.drawable.ic_submit_7);
+						 break;
+					 case 8:
+						 btnSubmit.setImageResource(R.drawable.ic_submit_8);
+						 break;
+					 case 9:
+						 btnSubmit.setImageResource(R.drawable.ic_submit_9);
+						 break;
+					 case 10:
+						 btnSubmit.setImageResource(R.drawable.ic_submit_10);
+						 break;
+				 }
+//		         tvCountDown.setText(String.valueOf());
 		     }
 
 		     public void onFinish() {
@@ -127,6 +166,28 @@ public class RemarkActivity extends Activity {
 		initScreen();
 		super.onCreate(savedInstanceState);
 	}
+
+	@Override
+	protected void onResume() {
+		registerReceiver(mReceiverUpdateStatusReport, new IntentFilter(Constants.ACTION_UPDATE_REPORT_STATUS));
+		super.onResume();
+	}
+
+	@Override
+	protected void onPause() {
+		unregisterReceiver(mReceiverUpdateStatusReport);
+		super.onPause();
+	}
+
+	BroadcastReceiver mReceiverUpdateStatusReport = new BroadcastReceiver() {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			String lastSubmission = CommonUtils.getLastSubmittedRport(context);
+			String nextSubmission = CommonUtils.getNextSubmittedRport(context);
+			mTvLastSubmission.setText(getString(R.string.last_report_submission) + " " + lastSubmission);
+			mTvNextSubmission.setText(getString(R.string.next_report_submission) + " " + nextSubmission);
+		}
+	};
 
 	private void initScreen()
 	{
@@ -179,6 +240,10 @@ public class RemarkActivity extends Activity {
 				}
 			}
 		}
+		String lastSubmission = CommonUtils.getLastSubmittedRport(context);
+		String nextSubmission = CommonUtils.getNextSubmittedRport(context);
+		mTvLastSubmission.setText(getString(R.string.last_report_submission) + " " + lastSubmission);
+		mTvNextSubmission.setText(getString(R.string.next_report_submission) + " " + nextSubmission);
 	}
 	
 	private void hideSoftKeyboard(Activity activity, View view) {

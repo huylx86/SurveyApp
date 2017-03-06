@@ -30,7 +30,7 @@ public class SendingReportTask extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         new MailSendingThread(context).execute();
-        Toast.makeText(context, "Alarm !!!!!!!!!!", Toast.LENGTH_LONG).show(); // For example
+//        Toast.makeText(context, "Alarm !!!!!!!!!!", Toast.LENGTH_LONG).show(); // For example
     }
 
     public void activeSendingReport(Context context)

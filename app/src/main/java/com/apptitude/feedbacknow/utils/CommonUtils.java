@@ -1,10 +1,14 @@
 package com.apptitude.feedbacknow.utils;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.Point;
 import android.graphics.drawable.Drawable;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
@@ -259,5 +263,28 @@ public class CommonUtils {
 		String filenameArray[] = fileName.split("\\.");
 		String extension = filenameArray[filenameArray.length-1];
 		return extension;
+	}
+
+	public static int getWidthOfScreen(Activity activity)
+	{
+		Display display = activity.getWindowManager().getDefaultDisplay();
+		Point size = new Point();
+		display.getSize(size);
+		return size.x;
+
+	}
+
+	public static int getHeightOfScreen(Activity activity)
+	{
+		Display display = activity.getWindowManager().getDefaultDisplay();
+		Point size = new Point();
+		display.getSize(size);
+		return size.y;
+
+	}
+
+	public static int dpToPx(Context context, int dp) {
+		DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+		return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
 	}
 }

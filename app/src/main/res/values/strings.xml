@@ -8,7 +8,7 @@
     <string name="main_title">Main Title (Default Bold):</string>
     <string name="sub_title">Sub Title:</string>
     <string name="select_background">Select Background:</string>
-    <string name="file_format">File format supported (PNG, JPG, GIF only)</string>
+    <string name="file_format">File format supported (PNG, JPG, GIF only)(%s)</string>
     <string name="upload_file_successfuly">Uploaded succesfully; %f</string>
     <string name="select_logo">Select logo:</string>
     <string name="input_email">Input recipent(s) Email:</string>
