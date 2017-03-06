@@ -48,13 +48,11 @@
 						  android:layout_height="wrap_content"
 						  android:textColor="@android:color/black"
 						  android:textStyle="bold"
-						  android:text="@string/remark"
 						  android:textSize="50sp"
 						  android:id="@+id/tv_feedback_main_title"/>
 				<TextView android:layout_width="wrap_content"
 						  android:layout_height="wrap_content"
 						  android:textColor="@android:color/black"
-						  android:text="@string/input_feedback"
 						  android:textSize="50sp"
 						  android:id="@+id/tv_feedback_sub_title"/>
 			<EditText android:layout_width="match_parent"

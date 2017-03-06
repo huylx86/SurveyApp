@@ -44,8 +44,14 @@ public class SendingReportTask extends BroadcastReceiver {
         long timePeriod;
         Calendar calendar = Calendar.getInstance();
         if(setting.isDailySending()){
-            int day = calendar.get(Calendar.DAY_OF_MONTH) + 1;
-            calendar.set(Calendar.DAY_OF_MONTH, day);
+            int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+            int currentMinute = calendar.get(Calendar.MINUTE);
+
+            if(currentHour > setting.getDailyHours() ||
+                    (currentHour == setting.getDailyHours() && currentMinute >= setting.getDailyMinute())) {
+                int day = calendar.get(Calendar.DAY_OF_MONTH) + 1;
+                calendar.set(Calendar.DAY_OF_MONTH, day);
+            }
             calendar.set(Calendar.HOUR_OF_DAY, setting.getDailyHours());
             calendar.set(Calendar.MINUTE, setting.getDailyMinute());
             timeTrigger = calendar.getTimeInMillis();

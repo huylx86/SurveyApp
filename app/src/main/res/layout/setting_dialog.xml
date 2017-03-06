@@ -22,17 +22,16 @@
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1.5"
+                    android:layout_marginRight="5dp"
                     android:textSize="@dimen/font_size_setting"
                     android:textStyle="bold"
                     android:textColor="@android:color/black"
                     android:text="@string/device_decription"/>
                 <EditText
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
                     android:hint="@string/character_limitation"
                     android:textSize="@dimen/font_size_setting"
                     android:id="@+id/edt_device_description"/>
@@ -43,17 +42,16 @@
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1.5"
+                    android:layout_marginRight="5dp"
                     android:textSize="@dimen/font_size_setting"
                     android:textStyle="bold"
                     android:textColor="@android:color/black"
                     android:text="@string/main_title"/>
                 <EditText
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
                     android:hint="@string/character_limitation"
                     android:textSize="@dimen/font_size_setting"
                     android:id="@+id/edt_main_title"/>
@@ -64,17 +62,16 @@
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1.5"
+                    android:layout_marginRight="5dp"
                     android:textSize="@dimen/font_size_setting"
                     android:textStyle="bold"
                     android:textColor="@android:color/black"
                     android:text="@string/sub_title"/>
                 <EditText
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
                     android:hint="@string/character_limitation"
                     android:textSize="@dimen/font_size_setting"
                     android:id="@+id/edt_sub_title"/>
@@ -213,6 +210,7 @@
                        <TextView
                            android:layout_width="130dp"
                            android:layout_height="wrap_content"
+                           android:layout_marginLeft="5dp"
                            android:textSize="@dimen/font_size_setting"
                            android:padding="3dp"
                            android:hint="DAY;HHMMSS"
@@ -227,17 +225,16 @@
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="220dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
+                    android:layout_marginRight="5dp"
                     android:textSize="@dimen/font_size_setting"
                     android:textStyle="bold"
                     android:textColor="@android:color/black"
                     android:text="@string/feedback_screen_main_title"/>
                 <EditText
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
                     android:hint="@string/character_limitation"
                     android:textSize="@dimen/font_size_setting"
                     android:id="@+id/edt_feedback_main_title"/>
@@ -248,17 +245,16 @@
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="220dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
+                    android:layout_marginRight="5dp"
                     android:textSize="@dimen/font_size_setting"
                     android:textStyle="bold"
                     android:textColor="@android:color/black"
                     android:text="@string/feedback_screen_sub_title"/>
                 <EditText
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
                     android:textSize="@dimen/font_size_setting"
                     android:hint="@string/character_limitation"
                     android:id="@+id/edt_feedback_sub_title"/>
@@ -269,17 +265,16 @@
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="220dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
+                    android:layout_marginRight="5dp"
                     android:textSize="@dimen/font_size_setting"
                     android:textStyle="bold"
                     android:textColor="@android:color/black"
                     android:text="@string/submitted_screen_title"/>
                 <EditText
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
                     android:textSize="@dimen/font_size_setting"
                     android:hint="@string/character_limitation"
                     android:id="@+id/edt_submit_main_title"/>

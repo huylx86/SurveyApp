@@ -5,8 +5,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.apptitude.feedbacknow.R;
 import com.apptitude.feedbacknow.models.SettingModel;
@@ -194,7 +196,7 @@ public class CommonUtils {
 
 	public static void showDialog(final Context context, String title, String message)
 	{
-		new AlertDialog.Builder(context, AlertDialog.THEME_HOLO_LIGHT)
+		AlertDialog alertDialog = new AlertDialog.Builder(context, AlertDialog.THEME_HOLO_LIGHT)
 				.setTitle(title)
 				.setMessage(message)
 				.setNegativeButton(android.R.string.ok, new DialogInterface.OnClickListener() {
@@ -204,16 +206,21 @@ public class CommonUtils {
 					}
 				})
 				.show();
+		TextView messageView = (TextView)alertDialog.findViewById(android.R.id.message);
+		messageView.setGravity(Gravity.CENTER);
 
 	}
 
 	public static void showConfirmDialog(final Context context, String title, String message, DialogInterface.OnClickListener onClick)
 	{
-		new AlertDialog.Builder(context, AlertDialog.THEME_HOLO_LIGHT)
+		AlertDialog alertDialog = new AlertDialog.Builder(context, AlertDialog.THEME_HOLO_LIGHT)
 				.setTitle(title)
 				.setMessage(message)
 				.setNegativeButton(context.getString(R.string.confirm), onClick)
 				.show();
+
+		TextView messageView = (TextView)alertDialog.findViewById(android.R.id.message);
+		messageView.setGravity(Gravity.CENTER);
 
 	}
 
