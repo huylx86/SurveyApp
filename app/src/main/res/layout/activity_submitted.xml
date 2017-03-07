@@ -57,5 +57,6 @@
         android:textColor="@android:color/black"
         android:textSize="50sp"
         android:textStyle="bold"
+        android:gravity="center"
         android:id="@+id/tv_submitted_title"/>
 </RelativeLayout>

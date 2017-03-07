@@ -167,52 +167,52 @@ public class SettingDialog extends Dialog {
 
     private boolean isValidData()
     {
-        String deviceDescription = mEdtDeviceDescription.getText().toString();
-        if(deviceDescription.equalsIgnoreCase("")){
-            String fieldName = "Device Description";
-            String message = mContext.getString(R.string.alert_message).replace("%m", fieldName);
-            CommonUtils.showDialog(mContext, mContext.getString(R.string.title_alert_dialog),message);
-            mEdtDeviceDescription.requestFocus();
-            return false;
-        }
+//        String deviceDescription = mEdtDeviceDescription.getText().toString();
+//        if(deviceDescription.equalsIgnoreCase("")){
+//            String fieldName = "Device Description";
+//            String message = mContext.getString(R.string.alert_message).replace("%m", fieldName);
+//            CommonUtils.showDialog(mContext, mContext.getString(R.string.title_alert_dialog),message);
+//            mEdtDeviceDescription.requestFocus();
+//            return false;
+//        }
+//
+//        String mainTitle = mEdtMainTitle.getText().toString();
+//        if(mainTitle.equalsIgnoreCase("")){
+//            String fieldName = "Main Title";
+//            String message = mContext.getString(R.string.alert_message).replace("%m", fieldName);
+//            CommonUtils.showDialog(mContext, mContext.getString(R.string.title_alert_dialog), message);
+//            mEdtMainTitle.requestFocus();
+//            return false;
+//        }
+//
+//        String subTitle = mEdtSubTitle.getText().toString();
+//        if(subTitle.equalsIgnoreCase("")){
+//            String fieldName = "Sub Title";
+//            String message = mContext.getString(R.string.alert_message).replace("%m", fieldName);
+//            CommonUtils.showDialog(mContext, mContext.getString(R.string.title_alert_dialog), message);
+//            mEdtSubTitle.requestFocus();
+//            return false;
+//        }
+//
+//        if(bgPath == null || (bgPath != null && bgPath.equalsIgnoreCase(""))){
+//            String message = mContext.getString(R.string.alert_message_select_background);
+//            CommonUtils.showDialog(mContext, mContext.getString(R.string.title_alert_dialog), message);
+//            return false;
+//        }
+//        if(logoPath == null || (logoPath != null && logoPath.equalsIgnoreCase(""))){
+//            String message = mContext.getString(R.string.alert_message_select_logo);
+//            CommonUtils.showDialog(mContext, mContext.getString(R.string.title_alert_dialog), message);
+//            return false;
+//        }
 
-        String mainTitle = mEdtMainTitle.getText().toString();
-        if(mainTitle.equalsIgnoreCase("")){
-            String fieldName = "Main Title";
-            String message = mContext.getString(R.string.alert_message).replace("%m", fieldName);
-            CommonUtils.showDialog(mContext, mContext.getString(R.string.title_alert_dialog), message);
-            mEdtMainTitle.requestFocus();
-            return false;
-        }
-
-        String subTitle = mEdtSubTitle.getText().toString();
-        if(subTitle.equalsIgnoreCase("")){
-            String fieldName = "Sub Title";
-            String message = mContext.getString(R.string.alert_message).replace("%m", fieldName);
-            CommonUtils.showDialog(mContext, mContext.getString(R.string.title_alert_dialog), message);
-            mEdtSubTitle.requestFocus();
-            return false;
-        }
-
-        if(bgPath == null || (bgPath != null && bgPath.equalsIgnoreCase(""))){
-            String message = mContext.getString(R.string.alert_message_select_background);
-            CommonUtils.showDialog(mContext, mContext.getString(R.string.title_alert_dialog), message);
-            return false;
-        }
-        if(logoPath == null || (logoPath != null && logoPath.equalsIgnoreCase(""))){
-            String message = mContext.getString(R.string.alert_message_select_logo);
-            CommonUtils.showDialog(mContext, mContext.getString(R.string.title_alert_dialog), message);
-            return false;
-        }
-
-        String email = mEdtInputEmail.getText().toString();
-        if(email.equalsIgnoreCase("")){
-            String fieldName = "Email(s)";
-            String message = mContext.getString(R.string.alert_message).replace("%m", fieldName);
-            CommonUtils.showDialog(mContext, mContext.getString(R.string.title_alert_dialog), message);
-            mEdtInputEmail.requestFocus();
-            return false;
-        }
+//        String email = mEdtInputEmail.getText().toString();
+//        if(email.equalsIgnoreCase("")){
+//            String fieldName = "Email(s)";
+//            String message = mContext.getString(R.string.alert_message).replace("%m", fieldName);
+//            CommonUtils.showDialog(mContext, mContext.getString(R.string.title_alert_dialog), message);
+//            mEdtInputEmail.requestFocus();
+//            return false;
+//        }
 
         String[] emails = mEdtInputEmail.getText().toString().split(";");
         for(String e : emails){
@@ -245,30 +245,30 @@ public class SettingDialog extends Dialog {
             }
         }
 
-        String feedbackMainTitle = mEdtFeedbackMainTitle.getText().toString();
-        if(feedbackMainTitle.equalsIgnoreCase("")){
-            String fieldName = "Feedback Main Title";
-            String message = mContext.getString(R.string.alert_message).replace("%m", fieldName);
-            CommonUtils.showDialog(mContext, mContext.getString(R.string.title_alert_dialog),message);
-            mEdtFeedbackMainTitle.requestFocus();
-            return false;
-        }
-        String feedbackSubTitle = mEdtFeedbackSubTitle.getText().toString();
-        if(feedbackSubTitle.equalsIgnoreCase("")){
-            String fieldName = "Feedback Sub Title";
-            String message = mContext.getString(R.string.alert_message).replace("%m", fieldName);
-            CommonUtils.showDialog(mContext, mContext.getString(R.string.title_alert_dialog), message);
-            mEdtFeedbackSubTitle.requestFocus();
-            return false;
-        }
-        String submitMainTitle = mEdtSubmitMainTitle.getText().toString();
-        if(submitMainTitle.equalsIgnoreCase("")){
-            String fieldName = "Submitted Screen Title";
-            String message = mContext.getString(R.string.alert_message).replace("%m", fieldName);
-            CommonUtils.showDialog(mContext, mContext.getString(R.string.title_alert_dialog),message);
-            mEdtSubmitMainTitle.requestFocus();
-            return false;
-        }
+//        String feedbackMainTitle = mEdtFeedbackMainTitle.getText().toString();
+//        if(feedbackMainTitle.equalsIgnoreCase("")){
+//            String fieldName = "Feedback Main Title";
+//            String message = mContext.getString(R.string.alert_message).replace("%m", fieldName);
+//            CommonUtils.showDialog(mContext, mContext.getString(R.string.title_alert_dialog),message);
+//            mEdtFeedbackMainTitle.requestFocus();
+//            return false;
+//        }
+//        String feedbackSubTitle = mEdtFeedbackSubTitle.getText().toString();
+//        if(feedbackSubTitle.equalsIgnoreCase("")){
+//            String fieldName = "Feedback Sub Title";
+//            String message = mContext.getString(R.string.alert_message).replace("%m", fieldName);
+//            CommonUtils.showDialog(mContext, mContext.getString(R.string.title_alert_dialog), message);
+//            mEdtFeedbackSubTitle.requestFocus();
+//            return false;
+//        }
+//        String submitMainTitle = mEdtSubmitMainTitle.getText().toString();
+//        if(submitMainTitle.equalsIgnoreCase("")){
+//            String fieldName = "Submitted Screen Title";
+//            String message = mContext.getString(R.string.alert_message).replace("%m", fieldName);
+//            CommonUtils.showDialog(mContext, mContext.getString(R.string.title_alert_dialog),message);
+//            mEdtSubmitMainTitle.requestFocus();
+//            return false;
+//        }
         return true;
     }
 

@@ -56,12 +56,14 @@
 					  android:gravity="center_horizontal">
 				<TextView android:layout_width="wrap_content"
 						  android:layout_height="wrap_content"
+                          android:gravity="center"
 						  android:textColor="@android:color/black"
 						  android:textStyle="bold"
 						  android:textSize="50sp"
 						  android:id="@+id/tv_feedback_main_title"/>
 				<TextView android:layout_width="wrap_content"
 						  android:layout_height="wrap_content"
+                          android:gravity="center"
 						  android:textColor="@android:color/black"
 						  android:textSize="50sp"
 						  android:id="@+id/tv_feedback_sub_title"/>
@@ -102,7 +104,8 @@
 		android:layout_alignParentBottom="true"
 		android:background="#A9A9A9"
 		android:orientation="horizontal"
-		android:paddingLeft="30dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
 		android:gravity="center_vertical"
 		android:id="@id/report_status">
 		<TextView
@@ -117,6 +120,7 @@
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:layout_weight="2"
+            android:gravity="right"
 			android:text="@string/next_report_submission"
 			android:textSize="14sp"
 			android:textColor="@android:color/white"

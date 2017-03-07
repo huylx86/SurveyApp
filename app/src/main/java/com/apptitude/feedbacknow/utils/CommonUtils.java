@@ -22,6 +22,7 @@ import com.google.gson.reflect.TypeToken;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -39,7 +40,10 @@ public class CommonUtils {
 	public static final String PREF_SETTING = "Pref_Setting";
 	public static final String LAST_SUBMIT_REPORT = "Last_Submit_Report";
 	public static final String NEXT_SUBMIT_REPORT = "Next_Submit_Report";
+	public static final String INIT_SUBMIT_REPORT = "Init_Submit_Report";
 	private static final String DATE_FORMAT_FILE = "ddMMyyyy";
+	private static final String DATE_FORMAT_REPORT = "dd/MM/yyyy";
+	private static final String DATE_FORMAT_SUBMITTED = "dd/MM/yyyy HH:mm";
 	private static final String CONFIRM_CONFIGURATION_APP = "Configuration_App";
 
 	public static String getFileName(String path)
@@ -104,6 +108,13 @@ public class CommonUtils {
 		return getString(context, PREF_TO_DATE, "");
 	}
 
+	public static String getDateForReport(String dateSubmitted) throws ParseException {
+		SimpleDateFormat spfSubmit = new SimpleDateFormat(DATE_FORMAT_FILE);
+		Date date = spfSubmit.parse(dateSubmitted);
+		SimpleDateFormat spf = new SimpleDateFormat(DATE_FORMAT_REPORT);
+		return spf.format(date);
+	}
+
     public static void saveStatusSubmissionReport(Context context, Date date)
 	{
 		SettingModel setting = getSetting(context);
@@ -135,7 +146,7 @@ public class CommonUtils {
 		if(context == null) return;
 		String date = "";
 		if(submittedDate != null) {
-			SimpleDateFormat spf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+			SimpleDateFormat spf = new SimpleDateFormat(DATE_FORMAT_SUBMITTED);
 			date = spf.format(submittedDate);
 		}
 		SharedPreferences pref = context.getSharedPreferences(
@@ -159,7 +170,7 @@ public class CommonUtils {
 
 	public static void saveNextSubmittedRport(Context context, Date submittedDate) {
 		if(context == null) return;
-		SimpleDateFormat spf= new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		SimpleDateFormat spf= new SimpleDateFormat(DATE_FORMAT_SUBMITTED);
 		String date = spf.format(submittedDate);
 		SharedPreferences pref = context.getSharedPreferences(
 				PREF_NAME, /* MODE_PRIVATE */0);

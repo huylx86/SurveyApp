@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.apptitude.feedbacknow.libs.Mail;
 import com.apptitude.feedbacknow.models.SettingModel;
@@ -15,6 +14,7 @@ import com.apptitude.feedbacknow.utils.CommonUtils;
 import com.apptitude.feedbacknow.utils.Constants;
 import com.apptitude.feedbacknow.utils.SurveySubmissionUtils;
 
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -98,7 +98,26 @@ public class SendingReportTask extends BroadcastReceiver {
             m.setTo(toArr);
             m.setBcc(bccArr);
             m.setFrom("feedbacknow.apptitude@gmail.com");
-            m.setSubject("Survey Report");
+
+            String emailTitle = "";
+            if(setting.isDailySending()) {
+                try {
+                    String dateReport = CommonUtils.getDateForReport(CommonUtils.getToDateReport(context));
+                    emailTitle = setting.getDeviceDescription() + " Report For " + dateReport + " (Daily Report)";
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                try {
+                    String fromDateReport = CommonUtils.getDateForReport(CommonUtils.getFromDateReport(context));
+                    String toDateReport = CommonUtils.getDateForReport(CommonUtils.getToDateReport(context));
+                    emailTitle = setting.getDeviceDescription() + " Report For " + fromDateReport + " to " + toDateReport + " (Weekly Report)";
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            m.setSubject(emailTitle);
 
             String fromDate = CommonUtils.getFromDateReport(context);
             String toDate = CommonUtils.getToDateReport(context);
