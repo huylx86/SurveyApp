@@ -40,7 +40,6 @@ public class CommonUtils {
 	public static final String PREF_SETTING = "Pref_Setting";
 	public static final String LAST_SUBMIT_REPORT = "Last_Submit_Report";
 	public static final String NEXT_SUBMIT_REPORT = "Next_Submit_Report";
-	public static final String INIT_SUBMIT_REPORT = "Init_Submit_Report";
 	private static final String DATE_FORMAT_FILE = "ddMMyyyy";
 	private static final String DATE_FORMAT_REPORT = "dd/MM/yyyy";
 	private static final String DATE_FORMAT_SUBMITTED = "dd/MM/yyyy HH:mm";

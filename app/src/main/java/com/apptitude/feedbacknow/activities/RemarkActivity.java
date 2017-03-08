@@ -194,17 +194,17 @@ public class RemarkActivity extends Activity {
 		SettingModel setting = CommonUtils.getSetting(this);
 		if(setting != null){
 			String feedbackMainTitle = setting.getFeedbackMainTitle();
-			if(!feedbackMainTitle.equalsIgnoreCase("")){
+			if(feedbackMainTitle != null){
 				mTvFeedbackMainTitle.setText(feedbackMainTitle);
 			}
 
 			String feedbackSubTitle = setting.getFeedbackSubTitle();
-			if(!feedbackSubTitle.equalsIgnoreCase("")){
+			if(feedbackSubTitle != null){
 				mTvFeedbackSubTitle.setText(feedbackSubTitle);
 			}
 
 			String bgPath = setting.getBackgroundPath();
-			if(!bgPath.equalsIgnoreCase("")){
+			if(bgPath != null && !bgPath.equalsIgnoreCase("")){
 				if(CommonUtils.getExtensionFileName(bgPath).equalsIgnoreCase("gif")) {
 					try {
 						CommonUtils.setImageGifFromPath(mIvBgGif, bgPath);
@@ -221,7 +221,7 @@ public class RemarkActivity extends Activity {
 			}
 
 			String logoPath = setting.getLogoPath();
-			if(!logoPath.equalsIgnoreCase("")){
+			if(logoPath != null && !logoPath.equalsIgnoreCase("")){
 				if(CommonUtils.getExtensionFileName(logoPath).equalsIgnoreCase("gif")) {
 					try {
 						CommonUtils.setImageGifFromPath(mIvLogGif, logoPath);

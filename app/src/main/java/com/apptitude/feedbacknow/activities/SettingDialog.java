@@ -299,15 +299,27 @@ public class SettingDialog extends Dialog {
             dayOfWeeks = setting.getDayOfWeek();
             bgPath = setting.getBackgroundPath();
             logoPath = setting.getLogoPath();
-            mTvBgPath.setText(mContext.getString(R.string.upload_file_successfuly).replace("%f", bgPath ));
-            mTvLogoPath.setText(mContext.getString(R.string.upload_file_successfuly).replace("%f", logoPath));
+            if(bgPath != null) {
+                mTvBgPath.setText(mContext.getString(R.string.upload_file_successfuly).replace("%f", bgPath));
+            } else {
+                String widthBg = String.valueOf(CommonUtils.getWidthOfScreen((Activity) mContext));
+                String heightBg = String.valueOf(CommonUtils.getHeightOfScreen((Activity) mContext));
+                mTvBgPath.setText(mContext.getString(R.string.file_format).replace("%s", widthBg + "x" + heightBg));
+            }
+            if(logoPath != null) {
+                mTvLogoPath.setText(mContext.getString(R.string.upload_file_successfuly).replace("%f", logoPath));
+            } else {
+                String widthLogo = String.valueOf(CommonUtils.getWidthOfScreen((Activity) mContext));
+                String heightLogo = "300";
+                mTvLogoPath.setText(mContext.getString(R.string.file_format).replace("%s", widthLogo + "x" + heightLogo));
+            }
         } else {
             String widthBg = String.valueOf(CommonUtils.getWidthOfScreen((Activity) mContext));
             String heightBg = String.valueOf(CommonUtils.getHeightOfScreen((Activity) mContext));
             mTvBgPath.setText(mContext.getString(R.string.file_format).replace("%s", widthBg + "x" + heightBg));
 
-            String widthLogo = String.valueOf((int)CommonUtils.getWidthOfScreen((Activity) mContext)/4);
-            String heightLogo = String.valueOf((int)(CommonUtils.getHeightOfScreen((Activity) mContext) - CommonUtils.dpToPx(mContext, 30))/3);
+            String widthLogo = String.valueOf(CommonUtils.getWidthOfScreen((Activity) mContext));
+            String heightLogo = "300";
             mTvLogoPath.setText(mContext.getString(R.string.file_format).replace("%s", widthLogo + "x" + heightLogo));
         }
     }

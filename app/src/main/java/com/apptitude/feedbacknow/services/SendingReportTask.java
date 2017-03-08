@@ -67,7 +67,7 @@ public class SendingReportTask extends BroadcastReceiver {
             }
             calendar.set(Calendar.HOUR_OF_DAY, setting.getWeeklyHours());
             calendar.set(Calendar.MINUTE, setting.getWeeklyMinutes());
-            calendar.set(Calendar.DAY_OF_WEEK, setting.getDayOfWeek());
+//            calendar.set(Calendar.DAY_OF_WEEK, setting.getDayOfWeek());
             timeTrigger = calendar.getTimeInMillis();
             timePeriod = WEEKLY_INTERVAL;
         }
@@ -124,14 +124,14 @@ public class SendingReportTask extends BroadcastReceiver {
 
             m.setBody(String.format("Please refer to attached %s to %s CSV report. Thank you.", fromDate, toDate));
             try {
-                CommonUtils.saveStatusSubmissionReport(context, new Date());
-                sendUpdateReportStatus(context);
                 String path = CommonUtils.getString(context, CommonUtils.FILE_WORKING, "");
                 m.addAttachment(path);
                 m.send();
             } catch (Exception e) {
                 Log.e("MailApp", "Could not send email", e);
             }
+            CommonUtils.saveStatusSubmissionReport(context, new Date());
+            sendUpdateReportStatus(context);
         }
     }
 

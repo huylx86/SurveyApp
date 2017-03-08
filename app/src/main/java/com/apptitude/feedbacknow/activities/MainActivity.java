@@ -247,17 +247,17 @@ public class MainActivity extends FragmentActivity{
 		SettingModel setting = CommonUtils.getSetting(this);
 		if(setting != null){
 			String mainTitle = setting.getMainTitle();
-			if(!mainTitle.equalsIgnoreCase("")){
+			if(mainTitle != null){
 				mTvMainTitle.setText(mainTitle);
 			}
 
 			String subTitle = setting.getSubTitle();
-			if(!subTitle.equalsIgnoreCase("")){
+			if(subTitle != null){
 				mTvSubTitle.setText(subTitle);
 			}
 
 			String bgPath = setting.getBackgroundPath();
-			if(!bgPath.equalsIgnoreCase("")){
+			if(bgPath != null && !bgPath.equalsIgnoreCase("")){
 				if(CommonUtils.getExtensionFileName(bgPath).equalsIgnoreCase("gif")) {
 					try {
 						CommonUtils.setImageGifFromPath(mIvBgGif, bgPath);
@@ -274,7 +274,7 @@ public class MainActivity extends FragmentActivity{
 			}
 
 			String logoPath = setting.getLogoPath();
-			if(!logoPath.equalsIgnoreCase("")){
+			if(logoPath != null && !logoPath.equalsIgnoreCase("")){
 				if(CommonUtils.getExtensionFileName(logoPath).equalsIgnoreCase("gif")) {
 					try {
 						CommonUtils.setImageGifFromPath(mIvLogGif, logoPath);

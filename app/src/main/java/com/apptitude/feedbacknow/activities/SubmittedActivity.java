@@ -52,7 +52,7 @@ public class SubmittedActivity extends Activity {
             }
 
             String bgPath = setting.getBackgroundPath();
-            if(!bgPath.equalsIgnoreCase("")){
+            if(bgPath != null && !bgPath.equalsIgnoreCase("")){
                 if(CommonUtils.getExtensionFileName(bgPath).equalsIgnoreCase("gif")) {
                     try {
                         CommonUtils.setImageGifFromPath(mIvBgGif, bgPath);
@@ -68,7 +68,7 @@ public class SubmittedActivity extends Activity {
                 }
             }
             String logoPath = setting.getLogoPath();
-            if(!logoPath.equalsIgnoreCase("")){
+            if(logoPath != null && !logoPath.equalsIgnoreCase("")){
                 if(CommonUtils.getExtensionFileName(logoPath).equalsIgnoreCase("gif")) {
                     try {
                         CommonUtils.setImageGifFromPath(mIvLogGif, logoPath);
