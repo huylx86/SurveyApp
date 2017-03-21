@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
+import android.os.Environment;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.Gravity;
@@ -20,7 +21,9 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -296,5 +299,37 @@ public class CommonUtils {
 	public static int dpToPx(Context context, int dp) {
 		DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
 		return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+	}
+
+	public static void writeLog(String action){
+		File file = new File(Environment.getExternalStorageDirectory(), "feedbackNowLog.txt");
+		if (!file.exists()){
+			try {
+				file.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		SimpleDateFormat spf = new SimpleDateFormat(DATE_FORMAT_SUBMITTED);
+		String date = spf.format(new Date());
+		String data = "[" + date + "] : " + action;
+		FileOutputStream output = null;
+		try {
+			output = new FileOutputStream(file, true);
+			OutputStreamWriter myOutWriter = new OutputStreamWriter(output);
+			myOutWriter.append(data);
+			myOutWriter.append("\n\r");
+			myOutWriter.close();
+			output.flush();
+		} catch (Exception e) {
+		}finally {
+			try {
+				output.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
 	}
 }

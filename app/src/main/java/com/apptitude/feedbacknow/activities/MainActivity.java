@@ -230,11 +230,13 @@ public class MainActivity extends FragmentActivity{
 			if(netInfo != null && netInfo.isConnected()){
 //				mViewConnectionStatus.setVisibility(View.GONE);
 				mTvNetworkStatus.setVisibility(View.GONE);
+				CommonUtils.writeLog("Network is Online");
 //				mTvLastSubmission.setVisibility(View.VISIBLE);
 //				mTvNextSubmission.setVisibility(View.VISIBLE);
 			} else {
 //				mViewConnectionStatus.setVisibility(View.VISIBLE);
 				mTvNetworkStatus.setVisibility(View.VISIBLE);
+				CommonUtils.writeLog("Network is Offline");
 //				mTvNetworkStatus.setText("Offline");
 //				mTvLastSubmission.setVisibility(View.INVISIBLE);
 //				mTvNextSubmission.setVisibility(View.INVISIBLE);

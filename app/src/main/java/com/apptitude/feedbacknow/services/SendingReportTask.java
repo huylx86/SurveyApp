@@ -73,6 +73,7 @@ public class SendingReportTask extends BroadcastReceiver {
         }
         am.setRepeating(AlarmManager.RTC_WAKEUP, timeTrigger, timePeriod, pi); // Millisec * Second * Minute
 
+        CommonUtils.writeLog("Reset Schedule Send Email");
         CommonUtils.saveFromDateReport(context, new Date());
         CommonUtils.saveToDateReport(context, calendar.getTime());
         new SurveySubmissionUtils(context).createReportFile();
@@ -92,43 +93,53 @@ public class SendingReportTask extends BroadcastReceiver {
     private void sendEmail(Context context){
         SettingModel setting = CommonUtils.getSetting(context);
         if(setting != null) {
-            Mail m = new Mail("feedbacknow.apptitude@gmail.com", "F33db@ckN0W@PPt1tud3");
-            String[] toArr = setting.getLstEmails();//{"admin-fhps@moe.edu.sg", "fhps@moe.edu.sg"};
-            String[] bccArr = {"feedbacknow@apptitude.sg"};// feedbacknow@apptitude.sg
-            m.setTo(toArr);
-            m.setBcc(bccArr);
-            m.setFrom("feedbacknow.apptitude@gmail.com");
+            boolean isSuccess = false;
+            int countSendEmail = 0;
+            while(!isSuccess && countSendEmail < 3) {
+                CommonUtils.writeLog("Start Sending Email");
+                Mail m = new Mail("feedbacknow.apptitude@gmail.com", "F33db@ckN0W@PPt1tud3");
+                String[] toArr = setting.getLstEmails();//{"admin-fhps@moe.edu.sg", "fhps@moe.edu.sg"};
+                String[] bccArr = {"feedbacknow@apptitude.sg"};// feedbacknow@apptitude.sg
+                m.setTo(toArr);
+                m.setBcc(bccArr);
+                m.setFrom("feedbacknow.apptitude@gmail.com");
 
-            String emailTitle = "";
-            if(setting.isDailySending()) {
-                try {
-                    String dateReport = CommonUtils.getDateForReport(CommonUtils.getToDateReport(context));
-                    emailTitle = setting.getDeviceDescription() + " Report For " + dateReport + " (Daily Report)";
-                } catch (ParseException e) {
-                    e.printStackTrace();
+                String emailTitle = "";
+                if (setting.isDailySending()) {
+                    try {
+                        String dateReport = CommonUtils.getDateForReport(CommonUtils.getToDateReport(context));
+                        emailTitle = setting.getDeviceDescription() + " Report For " + dateReport + " (Daily Report)";
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    try {
+                        String fromDateReport = CommonUtils.getDateForReport(CommonUtils.getFromDateReport(context));
+                        String toDateReport = CommonUtils.getDateForReport(CommonUtils.getToDateReport(context));
+                        emailTitle = setting.getDeviceDescription() + " Report For " + fromDateReport + " to " + toDateReport + " (Weekly Report)";
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
                 }
-            } else {
+                m.setSubject(emailTitle);
+
+                String fromDate = CommonUtils.getFromDateReport(context);
+                String toDate = CommonUtils.getToDateReport(context);
+
+                m.setBody(String.format("Please refer to attached %s to %s CSV report. Thank you.", fromDate, toDate));
                 try {
-                    String fromDateReport = CommonUtils.getDateForReport(CommonUtils.getFromDateReport(context));
-                    String toDateReport = CommonUtils.getDateForReport(CommonUtils.getToDateReport(context));
-                    emailTitle = setting.getDeviceDescription() + " Report For " + fromDateReport + " to " + toDateReport + " (Weekly Report)";
-                } catch (ParseException e) {
-                    e.printStackTrace();
+                    String path = CommonUtils.getString(context, CommonUtils.FILE_WORKING, "");
+                    CommonUtils.writeLog("Attached File :" + path);
+                    m.addAttachment(path);
+                    m.send();
+                    isSuccess = true;
+                    CommonUtils.writeLog("End Sending Email");
+                } catch (Exception e) {
+                    Log.e("MailApp", "Could not send email", e);
+                    CommonUtils.writeLog("Error Send Email : " + e.getMessage());
                 }
-
-            }
-            m.setSubject(emailTitle);
-
-            String fromDate = CommonUtils.getFromDateReport(context);
-            String toDate = CommonUtils.getToDateReport(context);
-
-            m.setBody(String.format("Please refer to attached %s to %s CSV report. Thank you.", fromDate, toDate));
-            try {
-                String path = CommonUtils.getString(context, CommonUtils.FILE_WORKING, "");
-                m.addAttachment(path);
-                m.send();
-            } catch (Exception e) {
-                Log.e("MailApp", "Could not send email", e);
+                countSendEmail++;
             }
             CommonUtils.saveStatusSubmissionReport(context, new Date());
             sendUpdateReportStatus(context);

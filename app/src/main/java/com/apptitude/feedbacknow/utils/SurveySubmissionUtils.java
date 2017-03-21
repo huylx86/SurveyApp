@@ -77,6 +77,7 @@ public class SurveySubmissionUtils {
                     writer.writeNext(fruits);
 
                     writer.close();
+                    CommonUtils.writeLog("Submit Status To File :" + pathFile);
                 }
             }
         } catch (Exception e) {

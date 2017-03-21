@@ -310,7 +310,7 @@ public class SettingDialog extends Dialog {
                 mTvLogoPath.setText(mContext.getString(R.string.upload_file_successfuly).replace("%f", logoPath));
             } else {
                 String widthLogo = String.valueOf(CommonUtils.getWidthOfScreen((Activity) mContext));
-                String heightLogo = "300";
+                String heightLogo = "180";
                 mTvLogoPath.setText(mContext.getString(R.string.file_format).replace("%s", widthLogo + "x" + heightLogo));
             }
         } else {
@@ -319,7 +319,7 @@ public class SettingDialog extends Dialog {
             mTvBgPath.setText(mContext.getString(R.string.file_format).replace("%s", widthBg + "x" + heightBg));
 
             String widthLogo = String.valueOf(CommonUtils.getWidthOfScreen((Activity) mContext));
-            String heightLogo = "300";
+            String heightLogo = "180";
             mTvLogoPath.setText(mContext.getString(R.string.file_format).replace("%s", widthLogo + "x" + heightLogo));
         }
     }
@@ -392,8 +392,10 @@ public class SettingDialog extends Dialog {
         setting.setBackgroundPath(bgPath);
         if(mChkDaily.isChecked()) {
             setting.setDailySending(true);
+            CommonUtils.writeLog("Save Setting : Daily : " + dailyHour + ":" + dailyMinute);
         } else {
             setting.setDailySending(false);
+            CommonUtils.writeLog("Save Setting : Weekly : " + dayOfWeeks + ", " + weeklyHour + ":" + weeklyMinute);
         }
         setting.setDailyHours(dailyHour);
         setting.setDailyMinute(dailyMinute);
