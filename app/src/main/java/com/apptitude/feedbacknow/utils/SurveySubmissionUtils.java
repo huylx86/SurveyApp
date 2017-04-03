@@ -63,6 +63,17 @@ public class SurveySubmissionUtils {
         }
 
     }
+
+    public String getFileWorking()
+    {
+        return pathFile;
+    }
+
+    public String getPathFolder()
+    {
+        return pathFolder;
+    }
+
     public void submitSurvey(String status, String feedback) throws IOException
     {
         try {

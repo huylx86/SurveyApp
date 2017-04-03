@@ -54,13 +54,13 @@
                           android:gravity="center"
 						  android:textColor="@android:color/black"
 						  android:textStyle="bold"
-						  android:textSize="@dimen/font_size_title"
+						  android:textSize="@dimen/font_size_main_title"
 						  android:id="@+id/tv_feedback_main_title"/>
 				<TextView android:layout_width="wrap_content"
 						  android:layout_height="@dimen/height_title"
                           android:gravity="center"
 						  android:textColor="@android:color/black"
-						  android:textSize="@dimen/font_size_title"
+						  android:textSize="@dimen/font_size_sub_title"
 						  android:id="@+id/tv_feedback_sub_title"/>
 			<EditText android:layout_width="match_parent"
 					  android:layout_height="120dp"

@@ -47,6 +47,7 @@ public class CommonUtils {
 	private static final String DATE_FORMAT_REPORT = "dd/MM/yyyy";
 	private static final String DATE_FORMAT_SUBMITTED = "dd/MM/yyyy HH:mm";
 	private static final String CONFIRM_CONFIGURATION_APP = "Configuration_App";
+    private static final String IS_SETTING = "Is_Setting";
 
 	public static String getFileName(String path)
 	{
@@ -105,6 +106,12 @@ public class CommonUtils {
 		saveString(context, PREF_TO_DATE, strDate);
 	}
 
+    public static String parseDateReport(Context context, Date date)
+    {
+        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_FILE);
+        return sdf.format(date);
+    }
+
 	public static String getToDateReport(Context context)
 	{
 		return getString(context, PREF_TO_DATE, "");
@@ -158,6 +165,22 @@ public class CommonUtils {
 		editor.commit();
 	}
 
+    public static void setIsSetting(Context context, boolean isSetting) {
+        if(context == null) return;
+        SharedPreferences pref = context.getSharedPreferences(
+                PREF_NAME, /* MODE_PRIVATE */0);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putBoolean(IS_SETTING, isSetting);
+        editor.commit();
+    }
+
+    public static boolean getIsSetting(Context context) {
+        SharedPreferences pref = context.getSharedPreferences(
+                PREF_NAME, /* MODE_PRIVATE */0);
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getBoolean(IS_SETTING, false);
+    }
+
 	public static String getLastSubmittedRport(Context context) {
 		if(context == null) return "";
 		SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
@@ -169,6 +192,17 @@ public class CommonUtils {
 		SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
 		return sharedPreferences.getString(NEXT_SUBMIT_REPORT, "");
 	}
+
+	public static Date getDateNextSubmittedReport(Context context) {
+        String nextSubmittedDate = getNextSubmittedRport(context);
+        SimpleDateFormat spf= new SimpleDateFormat(DATE_FORMAT_SUBMITTED);
+        try {
+            return spf.parse(nextSubmittedDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 	public static void saveNextSubmittedRport(Context context, Date submittedDate) {
 		if(context == null) return;

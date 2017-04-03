@@ -14,6 +14,7 @@ import com.apptitude.feedbacknow.utils.CommonUtils;
 import com.apptitude.feedbacknow.utils.Constants;
 import com.apptitude.feedbacknow.utils.SurveySubmissionUtils;
 
+import java.io.File;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
@@ -51,6 +52,7 @@ public class SendingReportTask extends BroadcastReceiver {
                     (currentHour == setting.getDailyHours() && currentMinute >= setting.getDailyMinute())) {
                 int day = calendar.get(Calendar.DAY_OF_MONTH) + 1;
                 calendar.set(Calendar.DAY_OF_MONTH, day);
+
             }
             calendar.set(Calendar.HOUR_OF_DAY, setting.getDailyHours());
             calendar.set(Calendar.MINUTE, setting.getDailyMinute());
@@ -60,8 +62,15 @@ public class SendingReportTask extends BroadcastReceiver {
             int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
             int dayTmp = setting.getDayOfWeek() - dayOfWeek;
             int day = calendar.get(Calendar.DAY_OF_MONTH);
+            int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+            int currentMinute = calendar.get(Calendar.MINUTE);
             if(dayTmp <= 0){
-                calendar.set(Calendar.DAY_OF_MONTH, day + dayTmp + 7);
+                if(currentHour > setting.getDailyHours() ||
+                        (currentHour == setting.getDailyHours() && currentMinute >= setting.getDailyMinute())) {
+                    calendar.set(Calendar.DAY_OF_MONTH, day + dayTmp + 7);
+                } else {
+                    calendar.set(Calendar.DAY_OF_MONTH, day);
+                }
             } else {
                 calendar.set(Calendar.DAY_OF_MONTH, day + dayTmp);
             }
@@ -72,6 +81,32 @@ public class SendingReportTask extends BroadcastReceiver {
             timePeriod = WEEKLY_INTERVAL;
         }
         am.setRepeating(AlarmManager.RTC_WAKEUP, timeTrigger, timePeriod, pi); // Millisec * Second * Minute
+
+        SurveySubmissionUtils survey = new SurveySubmissionUtils(context);
+        MailSendingThread mail = new MailSendingThread(context);
+
+        boolean isSetting = CommonUtils.getIsSetting(context);
+        if(!isSetting){
+            Date nextDateSubmitted = CommonUtils.getDateNextSubmittedReport(context);
+            if(nextDateSubmitted != null && nextDateSubmitted.before(new Date())) {
+                //Sending email
+                mail.execute();
+            }
+
+        } else {
+            //Rename Date from to Now
+            File fileWorking = new File(survey.getFileWorking());
+            String fromDate = CommonUtils.getFromDateReport(context);
+            String toDate = CommonUtils.parseDateReport(context, new Date());
+            CommonUtils.saveToDateReport(context, new Date());
+
+            File fileDestination = new File(survey.getPathFolder() + "/" + fromDate + "_" + toDate + ".csv");
+            fileWorking.renameTo(fileDestination);
+
+            mail.execute();
+            CommonUtils.setIsSetting(context, false);
+            //Send email
+        }
 
         CommonUtils.writeLog("Reset Schedule Send Email");
         CommonUtils.saveFromDateReport(context, new Date());

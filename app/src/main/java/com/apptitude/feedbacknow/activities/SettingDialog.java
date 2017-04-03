@@ -416,6 +416,7 @@ public class SettingDialog extends Dialog {
         setting.setSubmitMainTitle(mEdtSubmitMainTitle.getText().toString());
 
         CommonUtils.saveSetting(mContext, setting);
+        CommonUtils.setIsSetting(mContext, true);
     }
 
     private void galleryIntent(int selectType)
