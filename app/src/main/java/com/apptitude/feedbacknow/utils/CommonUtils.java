@@ -38,8 +38,11 @@ public class CommonUtils {
 	
 	private static final String PREF_NAME = "SurveyApp";
 	public static final String FILE_WORKING = "File_Working";
+    public static final String FILE_WORKING_CURRENT = "File_Working_Current";
 	public static final String PREF_FROM_DATE = "Pref_From_Date";
+    public static final String PREF_FROM_DATE_CURRENT = "Pref_From_Date_Current";
 	public static final String PREF_TO_DATE = "Pref_To_Date";
+    public static final String PREF_TO_DATE_CURRENT = "Pref_To_Date_Current";
 	public static final String PREF_SETTING = "Pref_Setting";
 	public static final String LAST_SUBMIT_REPORT = "Last_Submit_Report";
 	public static final String NEXT_SUBMIT_REPORT = "Next_Submit_Report";
@@ -99,12 +102,32 @@ public class CommonUtils {
 		return getString(context, PREF_FROM_DATE, "");
 	}
 
-	public static void saveToDateReport(Context context, Date date)
-	{
-		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_FILE);
-		String strDate = sdf.format(date);
-		saveString(context, PREF_TO_DATE, strDate);
-	}
+    public static void saveToDateReport(Context context, Date date)
+    {
+        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_FILE);
+        String strDate = sdf.format(date);
+        saveString(context, PREF_TO_DATE, strDate);
+    }
+
+    public static void saveFromDateCurrentReport(Context context, String date)
+    {
+        saveString(context, PREF_FROM_DATE_CURRENT, date);
+    }
+
+    public static String getFromDateCurrentReport(Context context)
+    {
+        return getString(context, PREF_FROM_DATE_CURRENT, "");
+    }
+
+    public static void saveToDateCurrentReport(Context context, String date)
+    {
+        saveString(context, PREF_TO_DATE_CURRENT, date);
+    }
+
+    public static String getToDateCurrentReport(Context context)
+    {
+        return getString(context, PREF_TO_DATE_CURRENT, "");
+    }
 
     public static String parseDateReport(Context context, Date date)
     {

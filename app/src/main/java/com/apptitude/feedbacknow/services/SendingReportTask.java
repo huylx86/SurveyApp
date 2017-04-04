@@ -30,7 +30,7 @@ public class SendingReportTask extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        new MailSendingThread(context).execute();
+        new MailSendingThread(context, false).execute();
 //        Toast.makeText(context, "Alarm !!!!!!!!!!", Toast.LENGTH_LONG).show(); // For example
     }
 
@@ -83,38 +83,45 @@ public class SendingReportTask extends BroadcastReceiver {
         am.setRepeating(AlarmManager.RTC_WAKEUP, timeTrigger, timePeriod, pi); // Millisec * Second * Minute
 
         SurveySubmissionUtils survey = new SurveySubmissionUtils(context);
-        MailSendingThread mail = new MailSendingThread(context);
+        MailSendingThread mail = new MailSendingThread(context, true);
 
         boolean isSetting = CommonUtils.getIsSetting(context);
         if(!isSetting){
             Date nextDateSubmitted = CommonUtils.getDateNextSubmittedReport(context);
             if(nextDateSubmitted != null && nextDateSubmitted.before(new Date())) {
+                CommonUtils.writeLog("Send Email After Open App");
                 //Sending email
                 mail.execute();
             }
 
         } else {
             //Rename Date from to Now
-            File fileWorking = new File(survey.getFileWorking());
-            String fromDate = CommonUtils.getFromDateReport(context);
-            String toDate = CommonUtils.parseDateReport(context, new Date());
-            CommonUtils.saveToDateReport(context, new Date());
+            String fileWorkingPath = survey.getFileWorking();
+            if(!fileWorkingPath.equalsIgnoreCase("")) {
+                //Send email with current report before change to new configuration
+                File fileWorking = new File(fileWorkingPath);
+                String fromDate = CommonUtils.getFromDateReport(context);
+                String toDate = CommonUtils.parseDateReport(context, new Date());
 
-            File fileDestination = new File(survey.getPathFolder() + "/" + fromDate + "_" + toDate + ".csv");
-            fileWorking.renameTo(fileDestination);
+                CommonUtils.saveFromDateCurrentReport(context, fromDate);
+                CommonUtils.saveToDateCurrentReport(context, toDate);
+                CommonUtils.saveString(context, CommonUtils.FILE_WORKING_CURRENT, fileWorkingPath);
 
-            mail.execute();
+                File fileDestination = new File(survey.getPathFolder() + "/" + fromDate + "_" + toDate + ".csv");
+                fileWorking.renameTo(fileDestination);
+
+                mail.execute();
+            }
             CommonUtils.setIsSetting(context, false);
-            //Send email
-        }
 
-        CommonUtils.writeLog("Reset Schedule Send Email");
-        CommonUtils.saveFromDateReport(context, new Date());
-        CommonUtils.saveToDateReport(context, calendar.getTime());
-        new SurveySubmissionUtils(context).createReportFile();
-        CommonUtils.saveLastSubmittedRport(context, null);
-        CommonUtils.saveNextSubmittedRport(context, calendar.getTime());
-        sendUpdateReportStatus(context);
+            CommonUtils.writeLog("Reset Schedule Send Email");
+            CommonUtils.saveFromDateReport(context, new Date());
+            CommonUtils.saveToDateReport(context, calendar.getTime());
+            new SurveySubmissionUtils(context).createReportFile();
+            CommonUtils.saveLastSubmittedRport(context, null);
+            CommonUtils.saveNextSubmittedRport(context, calendar.getTime());
+            sendUpdateReportStatus(context);
+        }
     }
 
     public void cancelSendingReport(Context context)
@@ -125,7 +132,7 @@ public class SendingReportTask extends BroadcastReceiver {
         alarmManager.cancel(sender);
     }
 
-    private void sendEmail(Context context){
+    private void sendEmail(Context context, boolean isSendBeforeChange){
         SettingModel setting = CommonUtils.getSetting(context);
         if(setting != null) {
             boolean isSuccess = false;
@@ -142,15 +149,28 @@ public class SendingReportTask extends BroadcastReceiver {
                 String emailTitle = "";
                 if (setting.isDailySending()) {
                     try {
-                        String dateReport = CommonUtils.getDateForReport(CommonUtils.getToDateReport(context));
+                        String dateReport;
+
+                        if(isSendBeforeChange) {
+                            dateReport = CommonUtils.getDateForReport(CommonUtils.getToDateCurrentReport(context));
+                        } else {
+                            dateReport = CommonUtils.getDateForReport(CommonUtils.getToDateReport(context));
+                        }
                         emailTitle = setting.getDeviceDescription() + " Report For " + dateReport + " (Daily Report)";
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
                 } else {
                     try {
-                        String fromDateReport = CommonUtils.getDateForReport(CommonUtils.getFromDateReport(context));
-                        String toDateReport = CommonUtils.getDateForReport(CommonUtils.getToDateReport(context));
+                        String fromDateReport;
+                        String toDateReport;
+                        if(isSendBeforeChange) {
+                            fromDateReport = CommonUtils.getDateForReport(CommonUtils.getFromDateCurrentReport(context));
+                            toDateReport = CommonUtils.getDateForReport(CommonUtils.getToDateCurrentReport(context));
+                        } else {
+                            fromDateReport = CommonUtils.getDateForReport(CommonUtils.getFromDateReport(context));
+                            toDateReport = CommonUtils.getDateForReport(CommonUtils.getToDateReport(context));
+                        }
                         emailTitle = setting.getDeviceDescription() + " Report For " + fromDateReport + " to " + toDateReport + " (Weekly Report)";
                     } catch (ParseException e) {
                         e.printStackTrace();
@@ -159,8 +179,15 @@ public class SendingReportTask extends BroadcastReceiver {
                 }
                 m.setSubject(emailTitle);
 
-                String fromDate = CommonUtils.getFromDateReport(context);
-                String toDate = CommonUtils.getToDateReport(context);
+                String fromDate;
+                String toDate;
+                if(isSendBeforeChange) {
+                    fromDate = CommonUtils.getFromDateCurrentReport(context);
+                    toDate = CommonUtils.getToDateCurrentReport(context);
+                } else {
+                    fromDate = CommonUtils.getFromDateReport(context);
+                    toDate = CommonUtils.getToDateReport(context);
+                }
 
                 m.setBody(String.format("Please refer to attached %s to %s CSV report. Thank you.", fromDate, toDate));
                 try {
@@ -190,8 +217,11 @@ public class SendingReportTask extends BroadcastReceiver {
     class MailSendingThread extends AsyncTask<Void, Void, Void> {
 
         private Context mContext;
-        public MailSendingThread(Context context){
+        private boolean mIsSendBeforeChange;
+
+        public MailSendingThread(Context context, boolean isSendBeforeChange){
             mContext = context;
+            mIsSendBeforeChange = isSendBeforeChange;
         }
         @Override
         protected void onPreExecute() {
@@ -205,7 +235,7 @@ public class SendingReportTask extends BroadcastReceiver {
 
         @Override
         protected Void doInBackground(Void... params) {
-            sendEmail(mContext);
+            sendEmail(mContext, mIsSendBeforeChange);
             return null;
         }
     }
