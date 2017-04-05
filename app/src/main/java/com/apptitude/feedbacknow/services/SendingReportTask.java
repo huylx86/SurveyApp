@@ -64,13 +64,15 @@ public class SendingReportTask extends BroadcastReceiver {
             int day = calendar.get(Calendar.DAY_OF_MONTH);
             int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
             int currentMinute = calendar.get(Calendar.MINUTE);
-            if(dayTmp <= 0){
-                if(currentHour > setting.getDailyHours() ||
-                        (currentHour == setting.getDailyHours() && currentMinute >= setting.getDailyMinute())) {
+            if(dayTmp == 0){
+                if(currentHour > setting.getWeeklyHours() ||
+                        (currentHour == setting.getWeeklyHours() && currentMinute >= setting.getWeeklyMinutes())) {
                     calendar.set(Calendar.DAY_OF_MONTH, day + dayTmp + 7);
                 } else {
                     calendar.set(Calendar.DAY_OF_MONTH, day);
                 }
+            } else if (dayTmp < 0) {
+                calendar.set(Calendar.DAY_OF_MONTH, day + dayTmp + 7);
             } else {
                 calendar.set(Calendar.DAY_OF_MONTH, day + dayTmp);
             }
@@ -147,36 +149,43 @@ public class SendingReportTask extends BroadcastReceiver {
                 m.setFrom("feedbacknow.apptitude@gmail.com");
 
                 String emailTitle = "";
-                if (setting.isDailySending()) {
-                    try {
-                        String dateReport;
-
-                        if(isSendBeforeChange) {
-                            dateReport = CommonUtils.getDateForReport(CommonUtils.getToDateCurrentReport(context));
-                        } else {
-                            dateReport = CommonUtils.getDateForReport(CommonUtils.getToDateReport(context));
+                if(isSendBeforeChange){
+                    if (setting.isDailyPreviousSending()) {
+                        try {
+                            String dateReport = CommonUtils.getDateForReport(CommonUtils.getToDateCurrentReport(context));
+                            emailTitle = setting.getDeviceDescription() + " Report For " + dateReport + " (Daily Report)";
+                        } catch (ParseException e) {
+                            e.printStackTrace();
                         }
-                        emailTitle = setting.getDeviceDescription() + " Report For " + dateReport + " (Daily Report)";
-                    } catch (ParseException e) {
-                        e.printStackTrace();
+                    } else {
+                        try {
+                            String fromDateReport = CommonUtils.getDateForReport(CommonUtils.getFromDateCurrentReport(context));
+                            String toDateReport = CommonUtils.getDateForReport(CommonUtils.getToDateCurrentReport(context));
+                            emailTitle = setting.getDeviceDescription() + " Report For " + fromDateReport + " to " + toDateReport + " (Weekly Report)";
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
                     }
                 } else {
-                    try {
-                        String fromDateReport;
-                        String toDateReport;
-                        if(isSendBeforeChange) {
-                            fromDateReport = CommonUtils.getDateForReport(CommonUtils.getFromDateCurrentReport(context));
-                            toDateReport = CommonUtils.getDateForReport(CommonUtils.getToDateCurrentReport(context));
-                        } else {
-                            fromDateReport = CommonUtils.getDateForReport(CommonUtils.getFromDateReport(context));
-                            toDateReport = CommonUtils.getDateForReport(CommonUtils.getToDateReport(context));
+                    if (setting.isDailySending()) {
+                        try {
+                            String dateReport = CommonUtils.getDateForReport(CommonUtils.getToDateReport(context));
+                            emailTitle = setting.getDeviceDescription() + " Report For " + dateReport + " (Daily Report)";
+                        } catch (ParseException e) {
+                            e.printStackTrace();
                         }
-                        emailTitle = setting.getDeviceDescription() + " Report For " + fromDateReport + " to " + toDateReport + " (Weekly Report)";
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
+                    } else {
+                        try {
+                            String fromDateReport = CommonUtils.getDateForReport(CommonUtils.getFromDateReport(context));
+                            String toDateReport = CommonUtils.getDateForReport(CommonUtils.getToDateReport(context));
+                            emailTitle = setting.getDeviceDescription() + " Report For " + fromDateReport + " to " + toDateReport + " (Weekly Report)";
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
 
+                    }
                 }
+
                 m.setSubject(emailTitle);
 
                 String fromDate;
@@ -191,7 +200,12 @@ public class SendingReportTask extends BroadcastReceiver {
 
                 m.setBody(String.format("Please refer to attached %s to %s CSV report. Thank you.", fromDate, toDate));
                 try {
-                    String path = CommonUtils.getString(context, CommonUtils.FILE_WORKING, "");
+                    String path;
+                    if(isSendBeforeChange) {
+                        path = CommonUtils.getString(context, CommonUtils.FILE_WORKING_CURRENT, "");
+                    } else {
+                        path = CommonUtils.getString(context, CommonUtils.FILE_WORKING, "");
+                    }
                     CommonUtils.writeLog("Attached File :" + path);
                     m.addAttachment(path);
                     m.send();

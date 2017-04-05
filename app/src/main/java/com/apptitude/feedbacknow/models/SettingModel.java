@@ -17,6 +17,7 @@ public class SettingModel {
     private String dailyTime;
     private String weeklyTime;
     private boolean isDailySending;
+    private boolean isDailyPreviousSending;
     private String feedbackMainTitle;
     private String feedbackSubTitle;
     private String submitMainTitle;
@@ -77,6 +78,14 @@ public class SettingModel {
 
     public void setDailySending(boolean dailySending) {
         isDailySending = dailySending;
+    }
+
+    public boolean isDailyPreviousSending() {
+        return isDailyPreviousSending;
+    }
+
+    public void setDailyPreviousSending(boolean dailyPreviousSending) {
+        isDailyPreviousSending = dailyPreviousSending;
     }
 
     public String getFeedbackMainTitle() {

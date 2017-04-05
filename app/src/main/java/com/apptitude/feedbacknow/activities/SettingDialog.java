@@ -43,6 +43,7 @@ public class SettingDialog extends Dialog {
     private String logoPath;
 
     private int dailyHour, dailyMinute, weeklyHour, weeklyMinute, dayOfWeeks;
+    private boolean isDailyPreviousSending;
 
     private Context mContext;
     private Handler mHandlerApplyConfiguration;
@@ -286,9 +287,11 @@ public class SettingDialog extends Dialog {
             mEdtSubmitMainTitle.setText(setting.getSubmitMainTitle());
             mTvWeeklyTime.setText(setting.getWeeklyTime());
             if(setting.isDailySending()){
+                isDailyPreviousSending = true;
                 mChkDaily.setChecked(true);
                 mChkWeekly.setChecked(false);
             } else {
+                isDailyPreviousSending = false;
                 mChkDaily.setChecked(false);
                 mChkWeekly.setChecked(true);
             }
@@ -397,6 +400,7 @@ public class SettingDialog extends Dialog {
             setting.setDailySending(false);
             CommonUtils.writeLog("Save Setting : Weekly : " + dayOfWeeks + ", " + weeklyHour + ":" + weeklyMinute);
         }
+        setting.setDailyPreviousSending(isDailyPreviousSending);
         setting.setDailyHours(dailyHour);
         setting.setDailyMinute(dailyMinute);
         setting.setWeeklyHours(weeklyHour);
