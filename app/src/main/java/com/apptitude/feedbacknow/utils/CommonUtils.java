@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.apptitude.feedbacknow.R;
+import com.apptitude.feedbacknow.models.FontStyleModel;
 import com.apptitude.feedbacknow.models.SettingModel;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -51,6 +52,12 @@ public class CommonUtils {
 	private static final String DATE_FORMAT_SUBMITTED = "dd/MM/yyyy HH:mm";
 	private static final String CONFIRM_CONFIGURATION_APP = "Configuration_App";
     private static final String IS_SETTING = "Is_Setting";
+	private static final String DEVICE_DES_FONT_STYLE = "Device_Descript_Font_Style";
+	private static final String MAIN_TITLE_FONT_STYLE = "Main_Title_Font_Style";
+	private static final String SUB_TITLE_FONT_STYLE = "Sub_Title_Font_Style";
+	private static final String FEEDBACK_MAIN_TITLE_FONT_STYLE = "Feedback_Main_Title_Font_Style";
+	private static final String FEEDBACK_SUB_TITLE_FONT_STYLE = "Feedback_Sub_Title_Font_Style";
+	private static final String SUBMITTED_TITLE_FONT_STYLE = "Submitted_Title_Font_Style";
 
 	public static String getFileName(String path)
 	{
@@ -388,5 +395,156 @@ public class CommonUtils {
 			}
 		}
 
+	}
+
+	public static void saveDeviceDesFontStyle(Context context, FontStyleModel fontStyle)
+	{
+		Gson gson = new Gson();
+		String result = gson.toJson(fontStyle);
+
+		SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sharedPreferences.edit();
+		editor.putString(DEVICE_DES_FONT_STYLE, result);
+		editor.commit();
+	}
+
+	public static FontStyleModel getDeviceDesFontStyle(Context context)
+	{
+		SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+		String strFontStyle = sharedPreferences.getString(DEVICE_DES_FONT_STYLE, "");
+
+		Type type = new TypeToken<FontStyleModel>() {}.getType();
+		Gson gson = new Gson();
+		FontStyleModel fontStyle = gson.fromJson(strFontStyle, type);
+		if(fontStyle == null) {
+			fontStyle = new FontStyleModel();
+		}
+		return fontStyle;
+	}
+
+	public static void saveMainTitleFontStyle(Context context, FontStyleModel fontStyle)
+	{
+		Gson gson = new Gson();
+		String result = gson.toJson(fontStyle);
+
+		SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sharedPreferences.edit();
+		editor.putString(MAIN_TITLE_FONT_STYLE, result);
+		editor.commit();
+	}
+
+	public static FontStyleModel getMainTitleFontStyle(Context context)
+	{
+		SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+		String strFontStyle = sharedPreferences.getString(MAIN_TITLE_FONT_STYLE, "");
+
+		Type type = new TypeToken<FontStyleModel>() {}.getType();
+		Gson gson = new Gson();
+		FontStyleModel fontStyle = gson.fromJson(strFontStyle, type);
+		if(fontStyle == null) {
+			fontStyle = new FontStyleModel();
+		}
+		return fontStyle;
+	}
+
+
+	public static void saveSubTitleFontStyle(Context context, FontStyleModel fontStyle)
+	{
+		Gson gson = new Gson();
+		String result = gson.toJson(fontStyle);
+
+		SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sharedPreferences.edit();
+		editor.putString(SUB_TITLE_FONT_STYLE, result);
+		editor.commit();
+	}
+
+	public static FontStyleModel getSubTitleFontStyle(Context context)
+	{
+		SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+		String strFontStyle = sharedPreferences.getString(SUB_TITLE_FONT_STYLE, "");
+
+		Type type = new TypeToken<FontStyleModel>() {}.getType();
+		Gson gson = new Gson();
+		FontStyleModel fontStyle = gson.fromJson(strFontStyle, type);
+		if(fontStyle == null) {
+			fontStyle = new FontStyleModel();
+		}
+		return fontStyle;
+	}
+
+	public static void saveFeedbackMainTitleFontStyle(Context context, FontStyleModel fontStyle)
+	{
+		Gson gson = new Gson();
+		String result = gson.toJson(fontStyle);
+
+		SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sharedPreferences.edit();
+		editor.putString(FEEDBACK_MAIN_TITLE_FONT_STYLE, result);
+		editor.commit();
+	}
+
+	public static FontStyleModel getFeedbackMainTitleFontStyle(Context context)
+	{
+		SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+		String strFontStyle = sharedPreferences.getString(FEEDBACK_MAIN_TITLE_FONT_STYLE, "");
+
+		Type type = new TypeToken<FontStyleModel>() {}.getType();
+		Gson gson = new Gson();
+		FontStyleModel fontStyle = gson.fromJson(strFontStyle, type);
+		if(fontStyle == null) {
+			fontStyle = new FontStyleModel();
+		}
+		return fontStyle;
+	}
+
+	public static void saveFeedbackSubTitleFontStyle(Context context, FontStyleModel fontStyle)
+	{
+		Gson gson = new Gson();
+		String result = gson.toJson(fontStyle);
+
+		SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sharedPreferences.edit();
+		editor.putString(FEEDBACK_SUB_TITLE_FONT_STYLE, result);
+		editor.commit();
+	}
+
+	public static FontStyleModel getFeedbackSubTitleFontStyle(Context context)
+	{
+		SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+		String strFontStyle = sharedPreferences.getString(FEEDBACK_SUB_TITLE_FONT_STYLE, "");
+
+		Type type = new TypeToken<FontStyleModel>() {}.getType();
+		Gson gson = new Gson();
+		FontStyleModel fontStyle = gson.fromJson(strFontStyle, type);
+		if(fontStyle == null) {
+			fontStyle = new FontStyleModel();
+		}
+		return fontStyle;
+	}
+
+	public static void saveSubmittedTitleFontStyle(Context context, FontStyleModel fontStyle)
+	{
+		Gson gson = new Gson();
+		String result = gson.toJson(fontStyle);
+
+		SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sharedPreferences.edit();
+		editor.putString(SUBMITTED_TITLE_FONT_STYLE, result);
+		editor.commit();
+	}
+
+	public static FontStyleModel getSubmittedTitleFontStyle(Context context)
+	{
+		SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+		String strFontStyle = sharedPreferences.getString(SUBMITTED_TITLE_FONT_STYLE, "");
+
+		Type type = new TypeToken<FontStyleModel>() {}.getType();
+		Gson gson = new Gson();
+		FontStyleModel fontStyle = gson.fromJson(strFontStyle, type);
+		if(fontStyle == null) {
+			fontStyle = new FontStyleModel();
+		}
+		return fontStyle;
 	}
 }

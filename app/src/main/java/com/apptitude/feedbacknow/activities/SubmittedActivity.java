@@ -1,14 +1,17 @@
 package com.apptitude.feedbacknow.activities;
 
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.apptitude.feedbacknow.R;
+import com.apptitude.feedbacknow.models.FontStyleModel;
 import com.apptitude.feedbacknow.models.SettingModel;
 import com.apptitude.feedbacknow.utils.CommonUtils;
 
@@ -49,6 +52,14 @@ public class SubmittedActivity extends Activity {
             String submittedTitle = setting.getSubmitMainTitle();
             if (submittedTitle != null) {
                 mTvSubmittedTitle.setText(submittedTitle);
+            }
+
+            FontStyleModel submittedFontStyle = CommonUtils.getSubmittedTitleFontStyle(this);
+            mTvSubmittedTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, submittedFontStyle.getFontSize());
+            if(submittedFontStyle.isBold()){
+                mTvSubmittedTitle.setTypeface(mTvSubmittedTitle.getTypeface(), Typeface.BOLD);
+            } else {
+                mTvSubmittedTitle.setTypeface(null, Typeface.NORMAL);
             }
 
             String bgPath = setting.getBackgroundPath();

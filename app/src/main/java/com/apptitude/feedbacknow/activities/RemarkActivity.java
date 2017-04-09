@@ -5,10 +5,12 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -21,6 +23,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.apptitude.feedbacknow.R;
+import com.apptitude.feedbacknow.models.FontStyleModel;
 import com.apptitude.feedbacknow.models.SettingModel;
 import com.apptitude.feedbacknow.utils.CommonUtils;
 import com.apptitude.feedbacknow.utils.Constants;
@@ -198,9 +201,25 @@ public class RemarkActivity extends Activity {
 				mTvFeedbackMainTitle.setText(feedbackMainTitle);
 			}
 
+			FontStyleModel feedbackMainTitleFontStyle = CommonUtils.getFeedbackMainTitleFontStyle(this);
+			mTvFeedbackMainTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, feedbackMainTitleFontStyle.getFontSize());
+			if(feedbackMainTitleFontStyle.isBold()){
+				mTvFeedbackMainTitle.setTypeface(mTvFeedbackMainTitle.getTypeface(), Typeface.BOLD);
+			} else {
+				mTvFeedbackMainTitle.setTypeface(null, Typeface.NORMAL);
+			}
+
 			String feedbackSubTitle = setting.getFeedbackSubTitle();
 			if(feedbackSubTitle != null){
 				mTvFeedbackSubTitle.setText(feedbackSubTitle);
+			}
+
+			FontStyleModel feedbackSubTitleFontStyle = CommonUtils.getFeedbackSubTitleFontStyle(this);
+			mTvFeedbackSubTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, feedbackSubTitleFontStyle.getFontSize());
+			if(feedbackSubTitleFontStyle.isBold()){
+				mTvFeedbackSubTitle.setTypeface(mTvFeedbackSubTitle.getTypeface(), Typeface.BOLD);
+			} else {
+				mTvFeedbackSubTitle.setTypeface(null, Typeface.NORMAL);
 			}
 
 			String bgPath = setting.getBackgroundPath();

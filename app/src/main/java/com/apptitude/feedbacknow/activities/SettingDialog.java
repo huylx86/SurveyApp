@@ -6,10 +6,12 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.StyleRes;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
@@ -20,6 +22,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.apptitude.feedbacknow.R;
+import com.apptitude.feedbacknow.models.FontStyleModel;
 import com.apptitude.feedbacknow.models.SettingModel;
 import com.apptitude.feedbacknow.utils.CommonUtils;
 import com.apptitude.feedbacknow.utils.Constants;
@@ -36,6 +39,12 @@ public class SettingDialog extends Dialog {
 
     private EditText mEdtDeviceDescription,mEdtMainTitle, mEdtSubTitle, mEdtInputEmail;
     private EditText mEdtFeedbackMainTitle, mEdtFeedbackSubTitle, mEdtSubmitMainTitle;
+    private EditText mEdtDeviceDesFontSize, mEdtMainTitleFontSize, mEdtSubTitleFontSize, mEdtFeedbackMainTitleFontSize,
+                     mEdtFeedbackSubTitleFontSize, mEdtSubmittedTitleFontSize;
+    private TextView mTvDeviceDesBold, mTvMainTitleBold, mTvSubTitleBold, mTvFeedbackMainTitleBold, mTvFeedbackSubTitleBold,
+                     mTvSubmittedTitleBold;
+    private TextView mTvBgMoreResolution, mTvLogoMoreResolution;
+
     private Button mBtnSelectBg, mBtnSelectLogo, mBtnConfirm;
     private RadioButton mChkDaily, mChkWeekly;
     private TextView mTvBgPath, mTvLogoPath, mTvDailyTime, mTvWeeklyTime;
@@ -47,6 +56,9 @@ public class SettingDialog extends Dialog {
 
     private Context mContext;
     private Handler mHandlerApplyConfiguration;
+
+    private FontStyleModel mDeviceDescriptionFontStyle, mMainTitleFontStyle, mSubTitleFontStyle, mFeedbackMainTitleFontStyle,
+                           mFeedbackSubTitleFontStyle, mSubmittedTitleFontStyle;
 
     public SettingDialog(@NonNull Context context, @StyleRes int themeResId, Handler handlerApplyConfiguration) {
         super(context, themeResId);
@@ -88,6 +100,21 @@ public class SettingDialog extends Dialog {
         });
         mTvBgPath = (TextView)findViewById(R.id.tv_bg_more_description);
         mTvLogoPath = (TextView)findViewById(R.id.tv_logo_more_description);
+        mTvDeviceDesBold = (TextView)findViewById(R.id.tv_device_description_bold);
+        mTvMainTitleBold = (TextView)findViewById(R.id.tv_main_title_bold);
+        mTvSubTitleBold = (TextView)findViewById(R.id.tv_sub_title_bold);
+        mTvFeedbackMainTitleBold = (TextView)findViewById(R.id.tv_feedback_main_title_bold);
+        mTvFeedbackSubTitleBold = (TextView)findViewById(R.id.tv_feedback_sub_title_bold);
+        mTvSubmittedTitleBold = (TextView)findViewById(R.id.tv_submitted_title_bold);
+        mEdtDeviceDesFontSize = (EditText)findViewById(R.id.edt_device_description_size);
+        mEdtMainTitleFontSize = (EditText)findViewById(R.id.edt_main_title_size);
+        mEdtSubTitleFontSize = (EditText)findViewById(R.id.edt_sub_title_size);
+        mEdtFeedbackMainTitleFontSize = (EditText)findViewById(R.id.edt_feedback_main_title_size);
+        mEdtFeedbackSubTitleFontSize = (EditText)findViewById(R.id.edt_feedback_sub_title_size);
+        mEdtSubmittedTitleFontSize = (EditText)findViewById(R.id.edt_submitted_title_size);
+        mTvBgMoreResolution = (TextView)findViewById(R.id.tv_bg_more_resolution);
+        mTvLogoMoreResolution = (TextView)findViewById(R.id.tv_logo_more_resolution);
+
 //        mEdtWeeklyTime.setInputType(InputType.TYPE_NULL);
 //        mTvDailyTime.setInputType(InputType.TYPE_NULL);
 
@@ -132,7 +159,7 @@ public class SettingDialog extends Dialog {
                         }
                         dailyHour = selectedHour;
                         dailyMinute = selectedMinute;
-                        mTvDailyTime.setText(hour + ":" + minute + ":" + "00");
+                        mTvDailyTime.setText(hour + ":" + minute);
                     }
                 }, hour, minute, true);
                 mTimePicker.setTitle("Select Time");
@@ -163,7 +190,121 @@ public class SettingDialog extends Dialog {
                 mChkDaily.setChecked(false);
             }
         });
+        mTvDeviceDesBold.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                boolean isBold = !mDeviceDescriptionFontStyle.isBold();
+                setBoldDeviceDescription(isBold);
+                mDeviceDescriptionFontStyle.setBold(isBold);
+            }
+        });
+        mTvMainTitleBold.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                boolean isBold = !mMainTitleFontStyle.isBold();
+                setBoldMainTitle(isBold);
+                mMainTitleFontStyle.setBold(isBold);
+            }
+        });
+        mTvSubTitleBold.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                boolean isBold = !mSubTitleFontStyle.isBold();
+                setBoldSubTitle(isBold);
+                mSubTitleFontStyle.setBold(isBold);
+            }
+        });
+        mTvFeedbackMainTitleBold.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                boolean isBold = !mFeedbackMainTitleFontStyle.isBold();
+                setBoldFeedbackMainTitle(isBold);
+                mFeedbackMainTitleFontStyle.setBold(isBold);
+            }
+        });
+        mTvFeedbackSubTitleBold.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                boolean isBold = !mFeedbackSubTitleFontStyle.isBold();
+                setBoldFeedbackSubTitle(isBold);
+                mFeedbackSubTitleFontStyle.setBold(isBold);
+            }
+        });
+        mTvSubmittedTitleBold.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                boolean isBold = !mSubmittedTitleFontStyle.isBold();
+                setBoldSubmittedTitle(isBold);
+                mSubmittedTitleFontStyle.setBold(isBold);
+            }
+        });
         initSetting();
+    }
+
+    private void setBoldDeviceDescription(boolean isBold)
+    {
+        if(isBold){
+            mTvDeviceDesBold.setTextColor(ContextCompat.getColor(mContext, R.color.white));
+            mTvDeviceDesBold.setTypeface(mTvDeviceDesBold.getTypeface(), Typeface.BOLD);
+        } else {
+            mTvDeviceDesBold.setTextColor(ContextCompat.getColor(mContext, R.color.grey));
+            mTvDeviceDesBold.setTypeface(null, Typeface.NORMAL);
+        }
+    }
+
+    private void setBoldMainTitle(boolean isBold)
+    {
+        if(isBold){
+            mTvMainTitleBold.setTextColor(ContextCompat.getColor(mContext, R.color.white));
+            mTvMainTitleBold.setTypeface(mTvMainTitleBold.getTypeface(), Typeface.BOLD);
+        } else {
+            mTvMainTitleBold.setTextColor(ContextCompat.getColor(mContext, R.color.grey));
+            mTvMainTitleBold.setTypeface(null, Typeface.NORMAL);
+        }
+    }
+
+    private void setBoldSubTitle(boolean isBold)
+    {
+        if(isBold){
+            mTvSubTitleBold.setTextColor(ContextCompat.getColor(mContext, R.color.white));
+            mTvSubTitleBold.setTypeface(mTvSubTitleBold.getTypeface(), Typeface.BOLD);
+        } else {
+            mTvSubTitleBold.setTextColor(ContextCompat.getColor(mContext, R.color.grey));
+            mTvSubTitleBold.setTypeface(null, Typeface.NORMAL);
+        }
+    }
+
+    private void setBoldFeedbackMainTitle(boolean isBold)
+    {
+        if(isBold){
+            mTvFeedbackMainTitleBold.setTextColor(ContextCompat.getColor(mContext, R.color.white));
+            mTvFeedbackMainTitleBold.setTypeface(mTvFeedbackMainTitleBold.getTypeface(), Typeface.BOLD);
+        } else {
+            mTvFeedbackMainTitleBold.setTextColor(ContextCompat.getColor(mContext, R.color.grey));
+            mTvFeedbackMainTitleBold.setTypeface(null, Typeface.NORMAL);
+        }
+    }
+
+    private void setBoldFeedbackSubTitle(boolean isBold)
+    {
+        if(isBold){
+            mTvFeedbackSubTitleBold.setTextColor(ContextCompat.getColor(mContext, R.color.white));
+            mTvFeedbackSubTitleBold.setTypeface(mTvFeedbackSubTitleBold.getTypeface(), Typeface.BOLD);
+        } else {
+            mTvFeedbackSubTitleBold.setTextColor(ContextCompat.getColor(mContext, R.color.grey));
+            mTvFeedbackSubTitleBold.setTypeface(null, Typeface.NORMAL);
+        }
+    }
+
+    private void setBoldSubmittedTitle(boolean isBold)
+    {
+        if(isBold){
+            mTvSubmittedTitleBold.setTextColor(ContextCompat.getColor(mContext, R.color.white));
+            mTvSubmittedTitleBold.setTypeface(mTvSubmittedTitleBold.getTypeface(), Typeface.BOLD);
+        } else {
+            mTvSubmittedTitleBold.setTextColor(ContextCompat.getColor(mContext, R.color.grey));
+            mTvSubmittedTitleBold.setTypeface(null, Typeface.NORMAL);
+        }
     }
 
     private boolean isValidData()
@@ -304,27 +445,51 @@ public class SettingDialog extends Dialog {
             logoPath = setting.getLogoPath();
             if(bgPath != null) {
                 mTvBgPath.setText(mContext.getString(R.string.upload_file_successfuly).replace("%f", bgPath));
+                mTvBgMoreResolution.setVisibility(View.GONE);
             } else {
                 String widthBg = String.valueOf(CommonUtils.getWidthOfScreen((Activity) mContext));
                 String heightBg = String.valueOf(CommonUtils.getHeightOfScreen((Activity) mContext));
-                mTvBgPath.setText(mContext.getString(R.string.file_format).replace("%s", widthBg + "x" + heightBg));
+                mTvBgMoreResolution.setText(mContext.getString(R.string.file_resolution).replace("%s", widthBg + "x" + heightBg));
+                mTvBgMoreResolution.setVisibility(View.VISIBLE);
             }
             if(logoPath != null) {
                 mTvLogoPath.setText(mContext.getString(R.string.upload_file_successfuly).replace("%f", logoPath));
+                mTvLogoMoreResolution.setVisibility(View.GONE);
             } else {
                 String widthLogo = String.valueOf(CommonUtils.getWidthOfScreen((Activity) mContext));
                 String heightLogo = "180";
-                mTvLogoPath.setText(mContext.getString(R.string.file_format).replace("%s", widthLogo + "x" + heightLogo));
+                mTvLogoMoreResolution.setText(mContext.getString(R.string.file_resolution).replace("%s", widthLogo + "x" + heightLogo));
+                mTvLogoMoreResolution.setVisibility(View.VISIBLE);
             }
         } else {
             String widthBg = String.valueOf(CommonUtils.getWidthOfScreen((Activity) mContext));
             String heightBg = String.valueOf(CommonUtils.getHeightOfScreen((Activity) mContext));
-            mTvBgPath.setText(mContext.getString(R.string.file_format).replace("%s", widthBg + "x" + heightBg));
+            mTvBgMoreResolution.setText(mContext.getString(R.string.file_resolution).replace("%s", widthBg + "x" + heightBg));
 
             String widthLogo = String.valueOf(CommonUtils.getWidthOfScreen((Activity) mContext));
             String heightLogo = "180";
-            mTvLogoPath.setText(mContext.getString(R.string.file_format).replace("%s", widthLogo + "x" + heightLogo));
+            mTvLogoMoreResolution.setText(mContext.getString(R.string.file_resolution).replace("%s", widthLogo + "x" + heightLogo));
         }
+        mDeviceDescriptionFontStyle = CommonUtils.getDeviceDesFontStyle(mContext);
+        mMainTitleFontStyle = CommonUtils.getMainTitleFontStyle(mContext);
+        mSubTitleFontStyle = CommonUtils.getSubTitleFontStyle(mContext);
+        mFeedbackMainTitleFontStyle = CommonUtils.getFeedbackMainTitleFontStyle(mContext);
+        mFeedbackSubTitleFontStyle = CommonUtils.getFeedbackSubTitleFontStyle(mContext);
+        mSubmittedTitleFontStyle = CommonUtils.getSubmittedTitleFontStyle(mContext);
+
+        mEdtDeviceDesFontSize.setText(String.valueOf(mDeviceDescriptionFontStyle.getFontSize()));
+        setBoldDeviceDescription(mDeviceDescriptionFontStyle.isBold());
+        mEdtMainTitleFontSize.setText(String.valueOf(mMainTitleFontStyle.getFontSize()));
+        setBoldMainTitle(mMainTitleFontStyle.isBold());
+        mEdtSubTitleFontSize.setText(String.valueOf(mSubTitleFontStyle.getFontSize()));
+        setBoldSubTitle(mSubTitleFontStyle.isBold());
+        mEdtFeedbackMainTitleFontSize.setText(String.valueOf(mFeedbackMainTitleFontStyle.getFontSize()));
+        setBoldFeedbackMainTitle(mFeedbackMainTitleFontStyle.isBold());
+        mEdtFeedbackSubTitleFontSize.setText(String.valueOf(mFeedbackSubTitleFontStyle.getFontSize()));
+        setBoldFeedbackSubTitle(mFeedbackSubTitleFontStyle.isBold());
+        mEdtSubmittedTitleFontSize.setText(String.valueOf(mSubmittedTitleFontStyle.getFontSize()));
+        setBoldSubmittedTitle(mSubmittedTitleFontStyle.isBold());
+
     }
 
 
@@ -379,7 +544,7 @@ public class SettingDialog extends Dialog {
             weeklyMinute = minute;
             dayOfWeeks = day;
 
-            mTvWeeklyTime.setText(dayOfWeek + ";" + strHour + ":" + strMinute + ":00");
+            mTvWeeklyTime.setText(dayOfWeek + ";" + strHour + ":" + strMinute);
         }
 
         @Override
@@ -421,6 +586,19 @@ public class SettingDialog extends Dialog {
 
         CommonUtils.saveSetting(mContext, setting);
         CommonUtils.setIsSetting(mContext, true);
+
+        mDeviceDescriptionFontStyle.setFontSize(Integer.parseInt(mEdtDeviceDesFontSize.getText().toString()));
+        CommonUtils.saveDeviceDesFontStyle(mContext, mDeviceDescriptionFontStyle);
+        mMainTitleFontStyle.setFontSize(Integer.parseInt(mEdtMainTitleFontSize.getText().toString()));
+        CommonUtils.saveMainTitleFontStyle(mContext, mMainTitleFontStyle);
+        mSubTitleFontStyle.setFontSize(Integer.parseInt(mEdtSubTitleFontSize.getText().toString()));
+        CommonUtils.saveSubTitleFontStyle(mContext, mSubTitleFontStyle);
+        mFeedbackMainTitleFontStyle.setFontSize(Integer.parseInt(mEdtFeedbackMainTitleFontSize.getText().toString()));
+        CommonUtils.saveFeedbackMainTitleFontStyle(mContext, mFeedbackMainTitleFontStyle);
+        mFeedbackSubTitleFontStyle.setFontSize(Integer.parseInt(mEdtFeedbackSubTitleFontSize.getText().toString()));
+        CommonUtils.saveFeedbackSubTitleFontStyle(mContext, mFeedbackSubTitleFontStyle);
+        mSubmittedTitleFontStyle.setFontSize(Integer.parseInt(mEdtSubmittedTitleFontSize.getText().toString()));
+        CommonUtils.saveSubmittedTitleFontStyle(mContext, mSubmittedTitleFontStyle);
     }
 
     private void galleryIntent(int selectType)

@@ -6,12 +6,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.FragmentActivity;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -19,6 +21,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.apptitude.feedbacknow.R;
+import com.apptitude.feedbacknow.models.FontStyleModel;
 import com.apptitude.feedbacknow.models.SettingModel;
 import com.apptitude.feedbacknow.services.SendingReportTask;
 import com.apptitude.feedbacknow.utils.CommonUtils;
@@ -253,10 +256,25 @@ public class MainActivity extends FragmentActivity{
 				mTvMainTitle.setText(mainTitle);
 			}
 
+            FontStyleModel mainTitleFontStyle = CommonUtils.getMainTitleFontStyle(mContext);
+            mTvMainTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, mainTitleFontStyle.getFontSize());
+            if(mainTitleFontStyle.isBold()){
+                mTvMainTitle.setTypeface(mTvMainTitle.getTypeface(), Typeface.BOLD);
+            } else {
+                mTvMainTitle.setTypeface(null, Typeface.NORMAL);
+            }
 			String subTitle = setting.getSubTitle();
 			if(subTitle != null){
 				mTvSubTitle.setText(subTitle);
 			}
+
+            FontStyleModel subTitleFontStyle = CommonUtils.getSubTitleFontStyle(mContext);
+            mTvSubTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, subTitleFontStyle.getFontSize());
+            if(mainTitleFontStyle.isBold()){
+                mTvSubTitle.setTypeface(mTvSubTitle.getTypeface(), Typeface.BOLD);
+            } else {
+                mTvSubTitle.setTypeface(null, Typeface.NORMAL);
+            }
 
 			String bgPath = setting.getBackgroundPath();
 			if(bgPath != null && !bgPath.equalsIgnoreCase("")){
