@@ -1,5 +1,6 @@
 package com.apptitude.feedbacknow.activities;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Handler;
@@ -7,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.StyleRes;
 import android.view.View;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -41,9 +43,10 @@ public class PasswordDialog extends Dialog {
         mBtnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String val = mEdtPass.getText().toString();
+                String val = CommonUtils.getDynamicPassword();//mEdtPass.getText().toString();
                 String pass = CommonUtils.getDynamicPassword();
                 if(val.equalsIgnoreCase(pass)) {
+                    hideSoftKeyboard((Activity) mContext, mEdtPass);
                     hide();
                     mHandlerShowSetting.sendEmptyMessage(Constants.SHOW_SETTING_DIALOG);
                 } else {
@@ -52,5 +55,10 @@ public class PasswordDialog extends Dialog {
                 }
             }
         });
+    }
+
+    private void hideSoftKeyboard(Activity activity, View view) {
+        InputMethodManager inputMethodManager = (InputMethodManager)  activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }

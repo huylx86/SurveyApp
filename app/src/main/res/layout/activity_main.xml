@@ -43,7 +43,7 @@
 				android:layout_height="40dp"
 				android:layout_margin="20dp"
 				android:scaleType="fitXY"
-				android:src="@drawable/edit"
+				android:src="@drawable/ico_edit"
 				android:id="@+id/iv_edit"/>
 			<!--</FrameLayout>-->
 		</FrameLayout>
@@ -187,7 +187,7 @@
 				android:layout_width="40dp"
 				android:layout_height="40dp"
 				android:scaleType="fitXY"
-				android:src="@drawable/exit"
+				android:src="@drawable/ico_exit"
 				android:id="@+id/iv_close"/>
 		</LinearLayout>
 		<TextView
@@ -218,4 +218,6 @@
 			<!--android:textColor="@android:color/white"-->
 			<!--android:id="@+id/tv_next_submission"/>-->
 	</LinearLayout>
+	<include layout="@layout/setting_dialog"
+			 android:visibility="invisible" />
 </RelativeLayout>

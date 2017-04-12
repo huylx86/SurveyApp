@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/activity_setting"
+    android:id="@+id/layout_setting"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black">
+    android:layout_marginRight="70dp"
+    android:background="@color/black_transparent">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -372,6 +373,7 @@
                 <TextView
                     android:layout_width="220dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
                     android:text="@string/input_email"
                     android:textSize="@dimen/font_size_setting"
                     android:textColor="@android:color/white"
@@ -534,7 +536,7 @@
                         android:gravity="center_vertical"
                         android:ellipsize="end"
                         android:text="@string/file_resolution"
-                        android:textSize="@dimen/font_size_setting"
+                        android:textSize="@dimen/font_size_resolution"
                         android:textStyle="italic"
                         android:textColor="@color/grey"
                         android:id="@+id/tv_bg_more_resolution"/>
@@ -575,7 +577,7 @@
                         android:gravity="center_vertical"
                         android:ellipsize="end"
                         android:text="@string/file_resolution"
-                        android:textSize="@dimen/font_size_setting"
+                        android:textSize="@dimen/font_size_resolution"
                         android:textStyle="italic"
                         android:textColor="@color/grey"
                         android:id="@+id/tv_logo_more_resolution"/>

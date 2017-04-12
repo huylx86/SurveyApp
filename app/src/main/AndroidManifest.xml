@@ -22,7 +22,7 @@
         <activity
             android:name="com.apptitude.feedbacknow.activities.MainActivity"
             android:screenOrientation="landscape"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen"
             android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
