@@ -43,7 +43,7 @@ public class PasswordDialog extends Dialog {
         mBtnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String val = CommonUtils.getDynamicPassword();//mEdtPass.getText().toString();
+                String val = mEdtPass.getText().toString();
                 String pass = CommonUtils.getDynamicPassword();
                 if(val.equalsIgnoreCase(pass)) {
                     hideSoftKeyboard((Activity) mContext, mEdtPass);
